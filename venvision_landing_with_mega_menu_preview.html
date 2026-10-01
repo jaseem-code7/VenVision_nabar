@@ -1,563 +1,1417 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Venvision Landing + Mega Menu Preview</title>
-<style>
-:root{
-  --burgundy:#650006;
-  --deep:#3d0004;
-  --ivory:#fffaf4;
-  --sand:#f2e5d6;
-  --sand2:#ead6c0;
-  --gold:#d4b483;
-  --text:#2d2724;
-  --muted:#7d716a;
-  --line:#eadfd5;
-  --black:#101315;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--ivory);color:var(--text);font-family:Inter,Arial,sans-serif}
-button,input{font:inherit}
-a{text-decoration:none;color:inherit}
-.topbar{height:30px;background:#ead9c8;color:#4d4038;display:flex;align-items:center;justify-content:center;font-size:11px;gap:10px;position:relative}
-.topbar b{color:var(--burgundy)}
-.close{position:absolute;right:18px;font-size:14px}
-.header{position:sticky;top:0;z-index:50;background:rgba(255,250,244,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.header-row{max-width:1180px;margin:auto;height:66px;padding:0 22px;display:grid;grid-template-columns:180px 1fr auto;align-items:center;gap:18px}
-.brand{display:flex;align-items:center;gap:10px;color:var(--burgundy);font-weight:700;font-size:20px}
-.logo{width:30px;height:30px;border:1.5px solid var(--burgundy);border-radius:50%;display:grid;place-items:center;font-family:Georgia,serif;position:relative}
-.logo:before{content:"◇";position:absolute;top:-11px;background:var(--ivory);padding:0 2px;font-size:14px}
-.nav{display:flex;align-items:center;justify-content:center;gap:4px;white-space:nowrap}
-.nav button{height:66px;border:0;background:transparent;color:#665d57;padding:0 13px;font-size:12px;cursor:pointer;position:relative}
-.nav button:hover,.nav button.active{color:var(--burgundy)}
-.nav button.active:after{content:"";position:absolute;left:12px;right:12px;bottom:0;height:2px;background:var(--burgundy)}
-.actions{display:flex;align-items:center;gap:10px;color:var(--burgundy);font-size:17px}
-.action{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;position:relative}
-.badge{position:absolute;right:-5px;top:-4px;background:var(--burgundy);color:white;border-radius:10px;font-size:8px;padding:2px 5px;border:2px solid var(--ivory)}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Venvision Landing + Mega Menu Preview</title>
+  <style>
+    :root {
+      --burgundy: #650006;
+      --deep: #3d0004;
+      --ivory: #fffaf4;
+      --sand: #f2e5d6;
+      --sand2: #ead6c0;
+      --gold: #d4b483;
+      --text: #2d2724;
+      --muted: #7d716a;
+      --line: #eadfd5;
+      --black: #101315;
+    }
 
-.mega{position:fixed;left:0;right:0;top:96px;z-index:40;background:#fff;box-shadow:0 18px 50px rgba(61,0,4,.13);border-bottom:1px solid var(--line);display:none}
-.mega.open{display:block}
-.mega-inner{max-width:1400px;margin:auto;display:grid;grid-template-columns:230px 1fr 300px;min-height:470px}
-.mega-side{padding:22px 18px;border-right:1px solid var(--line);background:#fff}
-.mega-side button{width:100%;text-align:left;padding:13px 14px;border:0;background:transparent;border-radius:9px;color:#5a504a;cursor:pointer;margin-bottom:4px}
-.mega-side button:hover,.mega-side button.active{background:#f8e9ea;color:var(--burgundy);font-weight:650}
-.mega-content{padding:22px 24px}
-.link-grid{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line)}
-.col{padding:0 20px 12px;border-right:1px solid var(--line)}
-.col:last-child{border-right:0}
-.menu-link{display:flex;align-items:center;gap:11px;min-height:54px;border-radius:10px;padding:7px 4px}
-.menu-link:hover{background:#fff8f2;color:var(--burgundy)}
-.menu-ico{width:34px;height:34px;border-radius:50%;background:#faf6f1;border:1px solid #efe5da;display:grid;place-items:center;color:var(--gold)}
-.menu-name{font-family:Georgia,serif;font-size:14px}
-.tile-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
-.tile{border:1px solid var(--line);border-radius:13px;overflow:hidden;background:#fff;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;cursor:pointer}
-.tile:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(61,0,4,.08);border-color:#d4b483}
-.tile-art{height:128px;background:#f6eee5;position:relative;overflow:hidden}
-.tile-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
-.tile:hover .tile-img{transform:scale(1.06)}
-.tile-name{text-align:center;padding:10px 8px;font-family:Georgia,serif;font-size:14px;color:var(--text);font-weight:500}
-.mini-strip{margin-top:18px;height:62px;border:1px solid var(--line);border-radius:11px;background:#fffaf5;display:flex;align-items:center;padding:8px 14px;gap:14px}
-.strip-atelier-preview{display:flex;align-items:center;gap:8px}
-.strip-thumb-stack{display:flex}
-.strip-thumb{width:36px;height:44px;border-radius:7px;object-fit:cover;border:2px solid white;margin-left:-9px;box-shadow:0 2px 6px rgba(61,0,4,.12);display:block}
-.strip-thumb:first-child{margin-left:0}
-.atelier-badge{font-size:9px;letter-spacing:1px;font-weight:700;color:var(--burgundy);background:#f6e7d8;padding:2px 6px;border-radius:4px;border:1px solid #e7d1bc}
-.strip-copy{flex:1;min-width:0}
-.strip-copy b{display:block;font-family:Georgia,serif;font-size:14px;color:var(--burgundy);line-height:1.2}
-.strip-copy span{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
-.custom-cta-btn{border:0;border-radius:6px;background:var(--burgundy);color:white;padding:9px 18px;font-size:11px;font-weight:600;letter-spacing:.3px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;transition:all .2s ease;cursor:pointer;box-shadow:0 2px 6px rgba(101,0,6,.2)}
-.custom-cta-btn:hover{background:var(--deep);transform:translateY(-1px);box-shadow:0 4px 12px rgba(101,0,6,.3);color:white}
-.mega-promo{padding:22px 18px;border-left:1px solid var(--line);display:flex;flex-direction:column}
-.promo-art{height:315px;border-radius:14px;position:relative;overflow:hidden;background:#f5ede3}
-.promo-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease,opacity .25s ease}
-.mega-promo:hover .promo-img{transform:scale(1.03)}
-.mega-promo h3{font-family:Georgia,serif;color:#4f1619;font-size:19px;margin:14px 0 7px;line-height:1.25}
-.mega-promo a{color:var(--burgundy);font-size:13px;text-decoration:underline;text-underline-offset:4px;font-weight:500}
+    * {
+      box-sizing: border-box
+    }
 
-.page{max-width:1160px;margin:auto;padding:0 22px}
-.hero{margin-top:0;height:440px;background:linear-gradient(90deg,#efdac3 0%,#ead7c4 52%,#e1c9b3 100%);position:relative;overflow:hidden}
-.hero-copy{position:absolute;left:48px;bottom:34px;z-index:3}
-.hero-copy small{display:block;letter-spacing:2px;text-transform:uppercase;color:#7a514d;font-size:10px}
-.hero-copy h1{font-family:Georgia,serif;color:var(--burgundy);font-size:42px;line-height:1.05;margin:8px 0 10px;max-width:410px}
-.hero-copy p{max-width:370px;color:#6d5f58;font-size:13px;line-height:1.55}
-.hero-model{position:absolute;right:0;top:0;width:57%;height:100%;background:
-radial-gradient(circle at 56% 28%,#e9b18a 0 12%,transparent 13%),
-radial-gradient(circle at 58% 38%,#f1bd99 0 17%,transparent 18%),
-linear-gradient(160deg,transparent 0 42%,#6a0007 42% 68%,#87101a 68% 100%);
-}
-.hero-model:before{content:"";position:absolute;right:28%;top:18%;width:90px;height:90px;border-radius:50%;box-shadow:0 0 0 15px rgba(255,255,255,.65),0 0 0 28px rgba(212,180,131,.6);transform:rotate(18deg)}
-.hero-model:after{content:"◇";position:absolute;right:37%;top:42%;font-size:58px;color:#fff;filter:drop-shadow(0 6px 9px rgba(86,0,6,.18))}
-.arrow{position:absolute;top:48%;width:42px;height:42px;border-radius:50%;background:white;display:grid;place-items:center;color:#86776f;font-size:21px;z-index:4}
-.arrow.left{left:22px}.arrow.right{right:22px}
-.dots-hero{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px}
-.dots-hero span{width:8px;height:8px;border-radius:50%;background:white;opacity:.7}.dots-hero span:first-child{width:26px;border-radius:10px;opacity:1}
+    html {
+      scroll-behavior: smooth
+    }
 
-.statement{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;padding:36px 0 34px}
-.statement h2{font-family:Georgia,serif;color:var(--burgundy);font-size:44px;line-height:.95;margin:0}
-.statement p{color:#8a7b72;font-size:13px;line-height:1.55;margin:0}
+    body {
+      margin: 0;
+      background: var(--ivory);
+      color: var(--text);
+      font-family: Inter, Arial, sans-serif
+    }
 
-.cat-feature{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
-.big-cat,.small-cat{background:#f7efe6;min-height:260px;position:relative;overflow:hidden}
-.small-stack{display:grid;grid-template-rows:1fr 1fr;gap:18px}
-.big-cat{min-height:530px}
-.cat-copy{position:absolute;left:26px;top:24px;z-index:2}
-.cat-copy h3{font-family:Georgia,serif;color:var(--burgundy);font-size:20px;margin:0 0 7px}
-.cat-copy a{font-size:11px;color:var(--burgundy);text-decoration:underline;text-underline-offset:4px}
-.product-illus{position:absolute;left:50%;top:54%;transform:translate(-50%,-45%);width:62%;height:62%;border-radius:50%;border:8px solid #d7af75;box-shadow:inset 0 0 0 8px #fff6e7}
-.product-illus:after{content:"◇";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:80px;color:#fff;filter:drop-shadow(0 4px 5px rgba(86,0,6,.15))}
-.small-cat .product-illus{width:42%;height:42%;border-width:6px}
-.small-cat .product-illus:after{font-size:46px}
+    button,
+    input {
+      font: inherit
+    }
 
-.section-title{display:flex;align-items:flex-end;justify-content:space-between;margin:36px 0 18px}
-.section-title h2{font-family:Georgia,serif;color:var(--burgundy);font-size:31px;line-height:.9;margin:0}
-.section-title a{font-size:11px;color:var(--burgundy);text-decoration:underline}
-.products{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
-.product{min-width:0}.product-img{height:200px;background:#f6eee5;position:relative;display:grid;place-items:center}
-.product-img:before{content:"◇";font-size:60px;color:#d0aa72}.tag{position:absolute;left:9px;top:9px;background:white;padding:3px 7px;font-size:9px}.discount{top:28px;background:#e2bd7e;color:white}
-.add{position:absolute;left:10px;right:10px;bottom:10px;background:var(--burgundy);color:white;text-align:center;padding:9px;font-size:10px;border-radius:4px}
-.product .stars{font-size:9px;letter-spacing:1px;margin-top:8px}.product b{font-size:11px;display:block;margin-top:4px}.price{font-size:10px;margin-top:4px;color:#2d2825}.old{color:#999;text-decoration:line-through;margin-left:5px}
-.benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:32px 0}.benefit{background:#f7efe6;padding:22px 18px;min-height:120px}.benefit .ico{font-size:26px}.benefit b{display:block;color:var(--burgundy);font-size:12px;margin-top:12px}.benefit span{font-size:9px;color:#8a7b72}
+    a {
+      text-decoration: none;
+      color: inherit
+    }
 
-.story{display:grid;grid-template-columns:1fr 1fr;background:#f4e6d9;margin:18px -22px 40px}
-.story-img{min-height:340px;background:linear-gradient(135deg,#4a1a10,#7a2b18 38%,#d8a56f 38% 53%,#8b4e32 53% 100%);position:relative}
-.story-img:after{content:"";position:absolute;left:25%;top:20%;width:180px;height:190px;border:12px solid rgba(255,255,255,.12);border-radius:90px 90px 8px 8px;box-shadow:0 0 0 12px rgba(86,0,6,.18)}
-.story-copy{display:flex;flex-direction:column;justify-content:center;padding:46px}.story-copy small{color:#bf9867;font-weight:600;font-size:9px;letter-spacing:1.3px}.story-copy h2{font-family:Georgia,serif;color:var(--burgundy);font-size:34px;line-height:1.05;margin:10px 0}.story-copy p{font-size:12px;color:#7b6d65;line-height:1.55}.story-copy a{font-size:11px;color:var(--burgundy);text-decoration:underline}
+    .topbar {
+      height: 30px;
+      background: #ead9c8;
+      color: #4d4038;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      gap: 10px;
+      position: relative
+    }
 
-.shop-by{padding:0 0 44px}.shop-head{display:flex;justify-content:space-between;align-items:center}.shop-head h2{font-family:Georgia,serif;color:var(--burgundy);font-size:29px}.shop-head a{font-size:10px;color:var(--burgundy);text-decoration:underline}
-.shop-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.shop-card .photo{height:250px;background:linear-gradient(145deg,#ead9c7,#9c6b53);position:relative;overflow:hidden}.shop-card:nth-child(2) .photo{background:linear-gradient(145deg,#d9cabd,#211b18)}.shop-card:nth-child(3) .photo{background:linear-gradient(145deg,#f1d1bc,#dfb7a3)}
-.person{position:absolute;left:50%;top:50%;transform:translate(-50%,-45%);width:130px;height:180px;border-radius:70px 70px 30px 30px;background:linear-gradient(#dca98d 0 30%,#650006 30% 100%)}.shop-card:nth-child(2) .person{background:linear-gradient(#c68f72 0 30%,#18191a 30% 100%)}.shop-card:nth-child(3) .person{height:150px;width:110px;background:linear-gradient(#f0c6ad 0 35%,#e8c1b4 35% 100%)}
-.shop-card b{display:block;color:var(--burgundy);font-size:12px;margin-top:10px}.shop-card a{font-size:10px;color:var(--burgundy);text-decoration:underline}
+    .topbar b {
+      color: var(--burgundy)
+    }
 
-.newsletter{margin:0 -22px;background:#ead9c8;padding:54px 22px;text-align:center}.newsletter h2{font-family:Georgia,serif;color:var(--burgundy);font-size:30px;margin:0 0 8px}.newsletter p{font-size:10px;color:#8b7b71}.signup{max-width:520px;margin:22px auto 0;display:flex;border-bottom:1px solid #b9a89e;align-items:center}.signup span{font-size:13px}.signup input{flex:1;background:transparent;border:0;outline:0;padding:12px;font-size:10px}.signup button{border:0;background:transparent;color:#6d625c;font-size:10px}
+    .close {
+      position: absolute;
+      right: 18px;
+      font-size: 14px
+    }
 
-.footer{background:#121618;color:#f7f1ed;padding:38px 22px 26px}.footer-inner{max-width:1160px;margin:auto}.footer-top{display:grid;grid-template-columns:260px 1fr;gap:60px;align-items:start}.foot-brand{font-family:Georgia,serif;font-size:20px}.foot-sub{font-size:9px;color:#a9a5a3;margin-left:10px}.foot-links{display:flex;gap:28px;justify-content:flex-end;font-size:10px}.foot-line{height:1px;background:#3b4143;margin:28px 0 16px}.foot-bottom{display:flex;justify-content:space-between;color:#aaa;font-size:9px}.policies{display:flex;gap:25px}.social{display:flex;gap:14px;color:white}
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 250, 244, .96);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line)
+    }
 
-@media(max-width:900px){
-.header-row{grid-template-columns:150px 1fr}.actions{display:none}.nav{justify-content:flex-start;overflow-x:auto}.mega-inner{grid-template-columns:180px 1fr}.mega-promo{display:none}.products{grid-template-columns:repeat(3,1fr)}.shop-cards{grid-template-columns:1fr}.statement{grid-template-columns:1fr;gap:20px}.cat-feature{grid-template-columns:1fr}.big-cat{min-height:420px}
-}
-@media(max-width:650px){
-.page{padding:0 12px}.hero{height:360px}.hero-copy{left:24px;bottom:22px}.hero-copy h1{font-size:34px}.hero-model{width:65%}.statement h2{font-size:34px}.products{grid-template-columns:repeat(2,1fr)}.benefits{grid-template-columns:repeat(2,1fr)}.story{grid-template-columns:1fr;margin-left:-12px;margin-right:-12px}.shop-cards{grid-template-columns:1fr}.footer-top{grid-template-columns:1fr}.foot-links{justify-content:flex-start;flex-wrap:wrap}.mega-inner{grid-template-columns:1fr}.mega-side{display:flex;overflow:auto;border-right:0;border-bottom:1px solid var(--line)}.mega-side button{min-width:max-content}.link-grid{grid-template-columns:1fr}.col{border-right:0}.tile-grid{grid-template-columns:repeat(2,1fr)}
-}
-</style>
+    .header-row {
+      max-width: 1180px;
+      margin: auto;
+      height: 66px;
+      padding: 0 22px;
+      display: grid;
+      grid-template-columns: 180px 1fr auto;
+      align-items: center;
+      gap: 18px
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--burgundy);
+      font-weight: 700;
+      font-size: 20px
+    }
+
+    .logo {
+      width: 30px;
+      height: 30px;
+      border: 1.5px solid var(--burgundy);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-family: Georgia, serif;
+      position: relative
+    }
+
+    .logo:before {
+      content: "◇";
+      position: absolute;
+      top: -11px;
+      background: var(--ivory);
+      padding: 0 2px;
+      font-size: 14px
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      white-space: nowrap
+    }
+
+    .nav button {
+      height: 66px;
+      border: 0;
+      background: transparent;
+      color: #665d57;
+      padding: 0 13px;
+      font-size: 12px;
+      cursor: pointer;
+      position: relative
+    }
+
+    .nav button:hover,
+    .nav button.active {
+      color: var(--burgundy)
+    }
+
+    .nav button.active:after {
+      content: "";
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 0;
+      height: 2px;
+      background: var(--burgundy)
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--burgundy);
+      font-size: 17px
+    }
+
+    .action {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      position: relative
+    }
+
+    .badge {
+      position: absolute;
+      right: -5px;
+      top: -4px;
+      background: var(--burgundy);
+      color: white;
+      border-radius: 10px;
+      font-size: 8px;
+      padding: 2px 5px;
+      border: 2px solid var(--ivory)
+    }
+
+    .mega {
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 96px;
+      z-index: 40;
+      background: #fff;
+      box-shadow: 0 18px 50px rgba(61, 0, 4, .13);
+      border-bottom: 1px solid var(--line);
+      display: none
+    }
+
+    .mega.open {
+      display: block
+    }
+
+    .mega-inner {
+      max-width: 1400px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 230px 1fr 300px;
+      min-height: 470px
+    }
+
+    .mega-side {
+      padding: 22px 18px;
+      border-right: 1px solid var(--line);
+      background: #fff
+    }
+
+    .mega-side button {
+      width: 100%;
+      text-align: left;
+      padding: 13px 14px;
+      border: 0;
+      background: transparent;
+      border-radius: 9px;
+      color: #5a504a;
+      cursor: pointer;
+      margin-bottom: 4px
+    }
+
+    .mega-side button:hover,
+    .mega-side button.active {
+      background: #f8e9ea;
+      color: var(--burgundy);
+      font-weight: 650
+    }
+
+    .mega-content {
+      padding: 22px 24px
+    }
+
+    .link-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-bottom: 1px solid var(--line)
+    }
+
+    .col {
+      padding: 0 20px 12px;
+      border-right: 1px solid var(--line)
+    }
+
+    .col:last-child {
+      border-right: 0
+    }
+
+    .menu-link {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-height: 54px;
+      border-radius: 10px;
+      padding: 7px 4px
+    }
+
+    .menu-link:hover {
+      background: #fff8f2;
+      color: var(--burgundy)
+    }
+
+    .menu-ico {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #faf6f1;
+      border: 1px solid #efe5da;
+      display: grid;
+      place-items: center;
+      color: var(--gold)
+    }
+
+    .menu-name {
+      font-family: Georgia, serif;
+      font-size: 14px
+    }
+
+    .tile-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px
+    }
+
+    .tile {
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      overflow: hidden;
+      background: #fff
+    }
+
+    .tile-art {
+      height: 128px;
+      background: linear-gradient(145deg, #f6e6d6, #fffaf4);
+      display: grid;
+      place-items: center;
+      font-size: 38px;
+      color: var(--burgundy)
+    }
+
+    .tile-name {
+      text-align: center;
+      padding: 10px;
+      font-family: Georgia, serif;
+      font-size: 14px
+    }
+
+    .mini-strip {
+      margin-top: 18px;
+      height: 62px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: #fffaf5;
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      gap: 12px
+    }
+
+    .mini-strip .dots {
+      display: flex
+    }
+
+    .mini-strip .dot {
+      width: 36px;
+      height: 44px;
+      border-radius: 7px;
+      background: linear-gradient(135deg, #ead5bf, #fff9f1);
+      border: 2px solid white;
+      margin-left: -7px;
+      display: grid;
+      place-items: center;
+      color: var(--burgundy)
+    }
+
+    .mini-strip .dot:first-child {
+      margin-left: 0
+    }
+
+    .strip-copy {
+      flex: 1
+    }
+
+    .strip-copy b {
+      display: block;
+      font-family: Georgia, serif;
+      font-size: 14px
+    }
+
+    .strip-copy span {
+      font-size: 11px;
+      color: var(--muted)
+    }
+
+    .view {
+      border: 0;
+      border-radius: 20px;
+      background: var(--burgundy);
+      color: white;
+      padding: 10px 18px;
+      font-size: 11px
+    }
+
+    .mega-promo {
+      padding: 22px 18px;
+      border-left: 1px solid var(--line)
+    }
+
+    .promo-art {
+      height: 315px;
+      border-radius: 14px;
+      background:
+        radial-gradient(circle at 65% 30%, rgba(255, 255, 255, .7), transparent 18%),
+        linear-gradient(150deg, var(--deep) 0 43%, #7a1018 43% 58%, #ead7c3 58% 100%);
+      position: relative;
+      overflow: hidden
+    }
+
+    .promo-art:before {
+      content: "◇";
+      position: absolute;
+      right: 58px;
+      top: 70px;
+      font-size: 88px;
+      color: #fff;
+      text-shadow: 0 8px 22px rgba(0, 0, 0, .18)
+    }
+
+    .promo-art:after {
+      content: "";
+      position: absolute;
+      right: 40px;
+      bottom: 45px;
+      width: 120px;
+      height: 38px;
+      border: 3px solid var(--gold);
+      border-radius: 50%;
+      transform: rotate(-10deg)
+    }
+
+    .mega-promo h3 {
+      font-family: Georgia, serif;
+      color: #4f1619;
+      font-size: 19px;
+      margin: 14px 0 7px
+    }
+
+    .mega-promo a {
+      color: var(--burgundy);
+      font-size: 13px;
+      text-decoration: underline;
+      text-underline-offset: 4px
+    }
+
+    .page {
+      max-width: 1160px;
+      margin: auto;
+      padding: 0 22px
+    }
+
+    .hero {
+      margin-top: 0;
+      height: 440px;
+      background: linear-gradient(90deg, #efdac3 0%, #ead7c4 52%, #e1c9b3 100%);
+      position: relative;
+      overflow: hidden
+    }
+
+    .hero-copy {
+      position: absolute;
+      left: 48px;
+      bottom: 34px;
+      z-index: 3
+    }
+
+    .hero-copy small {
+      display: block;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #7a514d;
+      font-size: 10px
+    }
+
+    .hero-copy h1 {
+      font-family: Georgia, serif;
+      color: var(--burgundy);
+      font-size: 42px;
+      line-height: 1.05;
+      margin: 8px 0 10px;
+      max-width: 410px
+    }
+
+    .hero-copy p {
+      max-width: 370px;
+      color: #6d5f58;
+      font-size: 13px;
+      line-height: 1.55
+    }
+
+    .hero-model {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 57%;
+      height: 100%;
+      background:
+        radial-gradient(circle at 56% 28%, #e9b18a 0 12%, transparent 13%),
+        radial-gradient(circle at 58% 38%, #f1bd99 0 17%, transparent 18%),
+        linear-gradient(160deg, transparent 0 42%, #6a0007 42% 68%, #87101a 68% 100%);
+    }
+
+    .hero-model:before {
+      content: "";
+      position: absolute;
+      right: 28%;
+      top: 18%;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      box-shadow: 0 0 0 15px rgba(255, 255, 255, .65), 0 0 0 28px rgba(212, 180, 131, .6);
+      transform: rotate(18deg)
+    }
+
+    .hero-model:after {
+      content: "◇";
+      position: absolute;
+      right: 37%;
+      top: 42%;
+      font-size: 58px;
+      color: #fff;
+      filter: drop-shadow(0 6px 9px rgba(86, 0, 6, .18))
+    }
+
+    .arrow {
+      position: absolute;
+      top: 48%;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: white;
+      display: grid;
+      place-items: center;
+      color: #86776f;
+      font-size: 21px;
+      z-index: 4
+    }
+
+    .arrow.left {
+      left: 22px
+    }
+
+    .arrow.right {
+      right: 22px
+    }
+
+    .dots-hero {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px
+    }
+
+    .dots-hero span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: white;
+      opacity: .7
+    }
+
+    .dots-hero span:first-child {
+      width: 26px;
+      border-radius: 10px;
+      opacity: 1
+    }
+
+    .statement {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      align-items: center;
+      padding: 36px 0 34px
+    }
+
+    .statement h2 {
+      font-family: Georgia, serif;
+      color: var(--burgundy);
+      font-size: 44px;
+      line-height: .95;
+      margin: 0
+    }
+
+    .statement p {
+      color: #8a7b72;
+      font-size: 13px;
+      line-height: 1.55;
+      margin: 0
+    }
+
+    .cat-feature {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px
+    }
+
+    .big-cat,
+    .small-cat {
+      background: #f7efe6;
+      min-height: 260px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .small-stack {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 18px
+    }
+
+    .big-cat {
+      min-height: 530px
+    }
+
+    .cat-copy {
+      position: absolute;
+      left: 26px;
+      top: 24px;
+      z-index: 2
+    }
+
+    .cat-copy h3 {
+      font-family: Georgia, serif;
+      color: var(--burgundy);
+      font-size: 20px;
+      margin: 0 0 7px
+    }
+
+    .cat-copy a {
+      font-size: 11px;
+      color: var(--burgundy);
+      text-decoration: underline;
+      text-underline-offset: 4px
+    }
+
+    .product-illus {
+      position: absolute;
+      left: 50%;
+      top: 54%;
+      transform: translate(-50%, -45%);
+      width: 62%;
+      height: 62%;
+      border-radius: 50%;
+      border: 8px solid #d7af75;
+      box-shadow: inset 0 0 0 8px #fff6e7
+    }
+
+    .product-illus:after {
+      content: "◇";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 80px;
+      color: #fff;
+      filter: drop-shadow(0 4px 5px rgba(86, 0, 6, .15))
+    }
+
+    .small-cat .product-illus {
+      width: 42%;
+      height: 42%;
+      border-width: 6px
+    }
+
+    .small-cat .product-illus:after {
+      font-size: 46px
+    }
+
+    .section-title {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin: 36px 0 18px
+    }
+
+    .section-title h2 {
+      font-family: Georgia, serif;
+      color: var(--burgundy);
+      font-size: 31px;
+      line-height: .9;
+      margin: 0
+    }
+
+    .section-title a {
+      font-size: 11px;
+      color: var(--burgundy);
+      text-decoration: underline
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px
+    }
+
+    .product {
+      min-width: 0
+    }
+
+    .product-img {
+      height: 200px;
+      background: #f6eee5;
+      position: relative;
+      display: grid;
+      place-items: center
+    }
+
+    .product-img:before {
+      content: "◇";
+      font-size: 60px;
+      color: #d0aa72
+    }
+
+    .tag {
+      position: absolute;
+      left: 9px;
+      top: 9px;
+      background: white;
+      padding: 3px 7px;
+      font-size: 9px
+    }
+
+    .discount {
+      top: 28px;
+      background: #e2bd7e;
+      color: white
+    }
+
+    .add {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      background: var(--burgundy);
+      color: white;
+      text-align: center;
+      padding: 9px;
+      font-size: 10px;
+      border-radius: 4px
+    }
+
+    .product .stars {
+      font-size: 9px;
+      letter-spacing: 1px;
+      margin-top: 8px
+    }
+
+    .product b {
+      font-size: 11px;
+      display: block;
+      margin-top: 4px
+    }
+
+    .price {
+      font-size: 10px;
+      margin-top: 4px;
+      color: #2d2825
+    }
+
+    .old {
+      color: #999;
+      text-decoration: line-through;
+      margin-left: 5px
+    }
+
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin: 32px 0
+    }
+
+    .benefit {
+      background: #f7efe6;
+      padding: 22px 18px;
+      min-height: 120px
+    }
+
+    .benefit .ico {
+      font-size: 26px
+    }
+
+    .benefit b {
+      display: block;
+      color: var(--burgundy);
+      font-size: 12px;
+      margin-top: 12px
+    }
+
+    .benefit span {
+      font-size: 9px;
+      color: #8a7b72
+    }
+
+    .story {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: #f4e6d9;
+      margin: 18px -22px 40px
+    }
+
+    .story-img {
+      min-height: 340px;
+      background: linear-gradient(135deg, #4a1a10, #7a2b18 38%, #d8a56f 38% 53%, #8b4e32 53% 100%);
+      position: relative
+    }
+
+    .story-img:after {
+      content: "";
+      position: absolute;
+      left: 25%;
+      top: 20%;
+      width: 180px;
+      height: 190px;
+      border: 12px solid rgba(255, 255, 255, .12);
+      border-radius: 90px 90px 8px 8px;
+      box-shadow: 0 0 0 12px rgba(86, 0, 6, .18)
+    }
+
+    .story-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 46px
+    }
+
+    .story-copy small {
+      color: #bf9867;
+      font-weight: 600;
+      font-size: 9px;
+      letter-spacing: 1.3px
+    }
+
+    .story-copy h2 {
+      font-family: Georgia, serif;
+      color: var(--burgundy);
+      font-size: 34px;
+      line-height: 1.05;
+      margin: 10px 0
+    }
+
+    .story-copy p {
+      font-size: 12px;
+      color: #7b6d65;
+      line-height: 1.55
+    }
+
+    .story-copy a {
+      font-size: 11px;
+      color: var(--burgundy);
+      text-decoration: underline
+    }
+
+    .shop-by {
+      padding: 0 0 44px
+    }
+
+    .shop-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center
+    }
+
+    .shop-head h2 {
+      font-family: Georgia, serif;
+      color: var(--burgundy);
+      font-size: 29px
+    }
+
+    .shop-head a {
+      font-size: 10px;
+      color: var(--burgundy);
+      text-decoration: underline
+    }
+
+    .shop-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px
+    }
+
+    .shop-card .photo {
+      height: 250px;
+      background: linear-gradient(145deg, #ead9c7, #9c6b53);
+      position: relative;
+      overflow: hidden
+    }
+
+    .shop-card:nth-child(2) .photo {
+      background: linear-gradient(145deg, #d9cabd, #211b18)
+    }
+
+    .shop-card:nth-child(3) .photo {
+      background: linear-gradient(145deg, #f1d1bc, #dfb7a3)
+    }
+
+    .person {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -45%);
+      width: 130px;
+      height: 180px;
+      border-radius: 70px 70px 30px 30px;
+      background: linear-gradient(#dca98d 0 30%, #650006 30% 100%)
+    }
+
+    .shop-card:nth-child(2) .person {
+      background: linear-gradient(#c68f72 0 30%, #18191a 30% 100%)
+    }
+
+    .shop-card:nth-child(3) .person {
+      height: 150px;
+      width: 110px;
+      background: linear-gradient(#f0c6ad 0 35%, #e8c1b4 35% 100%)
+    }
+
+    .shop-card b {
+      display: block;
+      color: var(--burgundy);
+      font-size: 12px;
+      margin-top: 10px
+    }
+
+    .shop-card a {
+      font-size: 10px;
+      color: var(--burgundy);
+      text-decoration: underline
+    }
+
+    .newsletter {
+      margin: 0 -22px;
+      background: #ead9c8;
+      padding: 54px 22px;
+      text-align: center
+    }
+
+    .newsletter h2 {
+      font-family: Georgia, serif;
+      color: var(--burgundy);
+      font-size: 30px;
+      margin: 0 0 8px
+    }
+
+    .newsletter p {
+      font-size: 10px;
+      color: #8b7b71
+    }
+
+    .signup {
+      max-width: 520px;
+      margin: 22px auto 0;
+      display: flex;
+      border-bottom: 1px solid #b9a89e;
+      align-items: center
+    }
+
+    .signup span {
+      font-size: 13px
+    }
+
+    .signup input {
+      flex: 1;
+      background: transparent;
+      border: 0;
+      outline: 0;
+      padding: 12px;
+      font-size: 10px
+    }
+
+    .signup button {
+      border: 0;
+      background: transparent;
+      color: #6d625c;
+      font-size: 10px
+    }
+
+    .footer {
+      background: #121618;
+      color: #f7f1ed;
+      padding: 38px 22px 26px
+    }
+
+    .footer-inner {
+      max-width: 1160px;
+      margin: auto
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 60px;
+      align-items: start
+    }
+
+    .foot-brand {
+      font-family: Georgia, serif;
+      font-size: 20px
+    }
+
+    .foot-sub {
+      font-size: 9px;
+      color: #a9a5a3;
+      margin-left: 10px
+    }
+
+    .foot-links {
+      display: flex;
+      gap: 28px;
+      justify-content: flex-end;
+      font-size: 10px
+    }
+
+    .foot-line {
+      height: 1px;
+      background: #3b4143;
+      margin: 28px 0 16px
+    }
+
+    .foot-bottom {
+      display: flex;
+      justify-content: space-between;
+      color: #aaa;
+      font-size: 9px
+    }
+
+    .policies {
+      display: flex;
+      gap: 25px
+    }
+
+    .social {
+      display: flex;
+      gap: 14px;
+      color: white
+    }
+
+    @media(max-width:900px) {
+      .header-row {
+        grid-template-columns: 150px 1fr
+      }
+
+      .actions {
+        display: none
+      }
+
+      .nav {
+        justify-content: flex-start;
+        overflow-x: auto
+      }
+
+      .mega-inner {
+        grid-template-columns: 180px 1fr
+      }
+
+      .mega-promo {
+        display: none
+      }
+
+      .products {
+        grid-template-columns: repeat(3, 1fr)
+      }
+
+      .shop-cards {
+        grid-template-columns: 1fr
+      }
+
+      .statement {
+        grid-template-columns: 1fr;
+        gap: 20px
+      }
+
+      .cat-feature {
+        grid-template-columns: 1fr
+      }
+
+      .big-cat {
+        min-height: 420px
+      }
+    }
+
+    @media(max-width:650px) {
+      .page {
+        padding: 0 12px
+      }
+
+      .hero {
+        height: 360px
+      }
+
+      .hero-copy {
+        left: 24px;
+        bottom: 22px
+      }
+
+      .hero-copy h1 {
+        font-size: 34px
+      }
+
+      .hero-model {
+        width: 65%
+      }
+
+      .statement h2 {
+        font-size: 34px
+      }
+
+      .products {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .benefits {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .story {
+        grid-template-columns: 1fr;
+        margin-left: -12px;
+        margin-right: -12px
+      }
+
+      .shop-cards {
+        grid-template-columns: 1fr
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr
+      }
+
+      .foot-links {
+        justify-content: flex-start;
+        flex-wrap: wrap
+      }
+
+      .mega-inner {
+        grid-template-columns: 1fr
+      }
+
+      .mega-side {
+        display: flex;
+        overflow: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--line)
+      }
+
+      .mega-side button {
+        min-width: max-content
+      }
+
+      .link-grid {
+        grid-template-columns: 1fr
+      }
+
+      .col {
+        border-right: 0
+      }
+
+      .tile-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div class="topbar">✦ <b>Exclusive Jewellery Offers — Limited Time</b> <u>Shop Now →</u><span class="close">×</span></div>
-<header class="header">
-  <div class="header-row">
-    <div class="brand"><div class="logo">V</div><span>Venvision</span></div>
-    <nav class="nav" id="nav"></nav>
-    <div class="actions">
-      <div class="action">⌕</div><div class="action">♙</div><div class="action">♡</div><div class="action">▢<span class="badge">2</span></div>
-    </div>
+  <div class="topbar">✦ <b>Exclusive Jewellery Offers — Limited Time</b> <u>Shop Now →</u><span class="close">×</span>
   </div>
-</header>
-
-<section class="mega" id="mega">
-  <div class="mega-inner">
-    <aside class="mega-side" id="megaSide"></aside>
-    <main class="mega-content" id="megaContent"></main>
-    <aside class="mega-promo" id="megaPromo"></aside>
-  </div>
-</section>
-
-<main class="page">
-  <section class="hero">
-    <div class="hero-copy">
-      <small>Fine jewellery for every story</small>
-      <h1>Timeless Elegance.<br>Crafted in Gold.</h1>
-      <p>Discover fine jewellery designed to make every moment shine.</p>
+  <header class="header">
+    <div class="header-row">
+      <div class="brand">
+        <div class="logo">V</div><span>Venvision</span>
+      </div>
+      <nav class="nav" id="nav"></nav>
+      <div class="actions">
+        <div class="action">⌕</div>
+        <div class="action">♙</div>
+        <div class="action">♡</div>
+        <div class="action">▢<span class="badge">2</span></div>
+      </div>
     </div>
-    <div class="hero-model"></div>
-    <div class="arrow left">←</div><div class="arrow right">→</div>
-    <div class="dots-hero"><span></span><span></span><span></span></div>
+  </header>
+
+  <section class="mega" id="mega">
+    <div class="mega-inner">
+      <aside class="mega-side" id="megaSide"></aside>
+      <main class="mega-content" id="megaContent"></main>
+      <aside class="mega-promo" id="megaPromo"></aside>
+    </div>
   </section>
 
-  <section class="statement">
-    <h2>Simply Unique/<br>Simply Better.</h2>
-    <p>Fine jewellery crafted for timeless elegance and everyday moments.</p>
-  </section>
+  <main class="page">
+    <section class="hero">
+      <div class="hero-copy">
+        <small>Fine jewellery for every story</small>
+        <h1>Timeless Elegance.<br>Crafted in Gold.</h1>
+        <p>Discover fine jewellery designed to make every moment shine.</p>
+      </div>
+      <div class="hero-model"></div>
+      <div class="arrow left">←</div>
+      <div class="arrow right">→</div>
+      <div class="dots-hero"><span></span><span></span><span></span></div>
+    </section>
 
-  <section class="cat-feature">
-    <div class="big-cat">
-      <div class="cat-copy"><h3>Necklaces</h3><a href="#">Shop Now →</a></div>
-      <div class="product-illus"></div>
-    </div>
-    <div class="small-stack">
-      <div class="small-cat">
-        <div class="cat-copy"><h3>Earrings</h3><a href="#">Shop Now →</a></div>
+    <section class="statement">
+      <h2>Simply Unique/<br>Simply Better.</h2>
+      <p>Fine jewellery crafted for timeless elegance and everyday moments.</p>
+    </section>
+
+    <section class="cat-feature">
+      <div class="big-cat">
+        <div class="cat-copy">
+          <h3>Necklaces</h3><a href="#">Shop Now →</a>
+        </div>
         <div class="product-illus"></div>
       </div>
-      <div class="small-cat">
-        <div class="cat-copy"><h3>Rings</h3><a href="#">Shop Now →</a></div>
-        <div class="product-illus"></div>
+      <div class="small-stack">
+        <div class="small-cat">
+          <div class="cat-copy">
+            <h3>Earrings</h3><a href="#">Shop Now →</a>
+          </div>
+          <div class="product-illus"></div>
+        </div>
+        <div class="small-cat">
+          <div class="cat-copy">
+            <h3>Rings</h3><a href="#">Shop Now →</a>
+          </div>
+          <div class="product-illus"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-title">
+      <h2>New<br>Arrivals</h2><a href="#">More Products →</a>
+    </div>
+    <section class="products">
+      <div class="product">
+        <div class="product-img"><span class="tag">NEW</span><span class="tag discount">-50%</span>
+          <div class="add">Add to cart</div>
+        </div>
+        <div class="stars">★★★★★</div><b>Diamond Pendant Necklace</b>
+        <div class="price">1,290 ﷼ <span class="old">4,000 ﷼</span></div>
+      </div>
+      <div class="product">
+        <div class="product-img"><span class="tag">NEW</span><span class="tag discount">-50%</span></div>
+        <div class="stars">★★★★★</div><b>Diamond Hoop Earrings</b>
+        <div class="price">1,490 ﷼</div>
+      </div>
+      <div class="product">
+        <div class="product-img"><span class="tag">NEW</span><span class="tag discount">-50%</span></div>
+        <div class="stars">★★★★★</div><b>Solitaire Diamond Ring</b>
+        <div class="price">249 ﷼</div>
+      </div>
+      <div class="product">
+        <div class="product-img"><span class="tag">NEW</span><span class="tag discount">-50%</span></div>
+        <div class="stars">★★★★★</div><b>Diamond Drop Earrings</b>
+        <div class="price">249 ﷼</div>
+      </div>
+      <div class="product">
+        <div class="product-img"><span class="tag">NEW</span><span class="tag discount">-50%</span></div>
+        <div class="stars">★★★★★</div><b>Gold Tennis Bracelet</b>
+        <div class="price">224.99 ﷼</div>
+      </div>
+    </section>
+
+    <section class="benefits">
+      <div class="benefit">
+        <div class="ico">▱</div><b>Free Shipping</b><span>Free delivery</span>
+      </div>
+      <div class="benefit">
+        <div class="ico">▣</div><b>Easy Returns</b><span>Simple 14-day returns</span>
+      </div>
+      <div class="benefit">
+        <div class="ico">♙</div><b>Secure Payments</b><span>Safe & protected checkout</span>
+      </div>
+      <div class="benefit">
+        <div class="ico">⌕</div><b>24/7 Support</b><span>We're here to help</span>
+      </div>
+    </section>
+
+    <section class="story">
+      <div class="story-img"></div>
+      <div class="story-copy"><small>EXCLUSIVE JEWELLERY OFFERS</small>
+        <h2>Timeless pieces,<br>exceptional value.</h2>
+        <p>Discover selected jewellery at special prices, crafted to make every moment shine.</p><a href="#">Shop
+          Collection →</a>
+      </div>
+    </section>
+
+    <section class="shop-by">
+      <div class="shop-head">
+        <h2>Shop by Category</h2><a href="#">View All Categories →</a>
+      </div>
+      <div class="shop-cards">
+        <div class="shop-card">
+          <div class="photo">
+            <div class="person"></div>
+          </div><b>Ladies Jewellery</b><a href="#">Shop Now →</a>
+        </div>
+        <div class="shop-card">
+          <div class="photo">
+            <div class="person"></div>
+          </div><b>Men's Jewellery</b><a href="#">Shop Now →</a>
+        </div>
+        <div class="shop-card">
+          <div class="photo">
+            <div class="person"></div>
+          </div><b>Kids' Jewellery</b><a href="#">Shop Now →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="newsletter">
+      <h2>Join Our Newsletter</h2>
+      <p>Get updates on jewellery collections and special launches.</p>
+      <div class="signup"><span>✉</span><input placeholder="Email address"><button>Signup</button></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div><span class="foot-brand">venvision.</span><span class="foot-sub">Fine Jewellery & Gold</span></div>
+        <div class="foot-links"><a>Home</a><a>Shop</a><a>New Arrivals</a><a>Custom Jewellery</a><a>Contact Us</a></div>
+      </div>
+      <div class="foot-line"></div>
+      <div class="foot-bottom"><span>© 2026 Venvision. All rights reserved.</span>
+        <div class="policies"><span>Privacy Policy</span><span>Terms of Use</span></div>
+        <div class="social"><span>◎</span><span>f</span><span>▶</span></div>
       </div>
     </div>
-  </section>
+  </footer>
 
-  <div class="section-title">
-    <h2>New<br>Arrivals</h2><a href="#">More Products →</a>
-  </div>
-  <section class="products">
-    <div class="product"><div class="product-img"><span class="tag">NEW</span><span class="tag discount">-50%</span><div class="add">Add to cart</div></div><div class="stars">★★★★★</div><b>Diamond Pendant Necklace</b><div class="price">1,290 ﷼ <span class="old">4,000 ﷼</span></div></div>
-    <div class="product"><div class="product-img"><span class="tag">NEW</span><span class="tag discount">-50%</span></div><div class="stars">★★★★★</div><b>Diamond Hoop Earrings</b><div class="price">1,490 ﷼</div></div>
-    <div class="product"><div class="product-img"><span class="tag">NEW</span><span class="tag discount">-50%</span></div><div class="stars">★★★★★</div><b>Solitaire Diamond Ring</b><div class="price">249 ﷼</div></div>
-    <div class="product"><div class="product-img"><span class="tag">NEW</span><span class="tag discount">-50%</span></div><div class="stars">★★★★★</div><b>Diamond Drop Earrings</b><div class="price">249 ﷼</div></div>
-    <div class="product"><div class="product-img"><span class="tag">NEW</span><span class="tag discount">-50%</span></div><div class="stars">★★★★★</div><b>Gold Tennis Bracelet</b><div class="price">224.99 ﷼</div></div>
-  </section>
+  <script>
+    const DATA = {
+      "All Jewellery": {
+        side: ["Category", "Price", "Occasion", "Gender"],
+        panels: {
+          "Category": { mode: "links", items: ["All Jewellery", "Finger Rings", "Nose Pin", "Bangles", "Earrings", "Mangalsutra", "Necklaces", "Bracelets", "Pendants", "Chains", "Necklace Set", "Pendants & Earring Set"], strip: ["Jewellery for Every Moment—See It All Here!", "Explore the full jewellery collection."], promo: ["Discover Timeless Crafted Jewellery.", "Explore Now"] },
+          "Price": { mode: "tiles", items: ["Under 25K", "25K - 50K", "50K - 1L", "1L & Above"], strip: ["Find Jewellery for Every Budget", "Explore by price range."], promo: ["Find Your Perfect Piece.", "Shop by Price"] },
+          "Occasion": { mode: "tiles", items: ["Daily Wear", "Work Wear", "Festive", "Wedding", "Gifting", "Special Moments"], strip: ["Jewellery for Every Occasion", "Choose pieces for every moment."], promo: ["Made for Every Celebration.", "Explore"] },
+          "Gender": { mode: "tiles", items: ["Women", "Men", "Kids & Teens"], strip: ["Made for Everyone", "Explore jewellery for women, men and kids."], promo: ["Find Their Perfect Style.", "Shop Now"] }
+        }
+      },
+      "Gold": {
+        side: ["Category", "Price", "Occasion", "Gold Coin", "Men", "Metal"],
+        panels: {
+          "Category": { mode: "links", items: ["All Gold Jewellery", "Gold Rings", "Gold Necklaces", "Gold Earrings", "Gold Bangles", "Gold Bracelets", "Gold Pendants", "Gold Chains", "Gold Sets"], strip: ["The Art of Gold", "Discover timeless gold designs."], promo: ["Golden Classics, Modern Grace.", "Explore Gold"] },
+          "Price": { mode: "tiles", items: ["<25K", "25K - 50K", "50K - 1L", "1L & Above"], strip: ["From Classic to Contemporary.", "Explore gold designs across every budget."], promo: ["Radiance in Every Range.", "View Gold"] },
+          "Occasion": { mode: "tiles", items: ["Daily Wear", "Festive", "Wedding", "Gifting"], strip: ["Gold for Every Moment", "From everyday classics to celebration pieces."], promo: ["A Golden Story for Every Occasion.", "Shop Gold"] },
+          "Gold Coin": { mode: "tiles", items: ["1g Gold Coin", "2g Gold Coin", "5g Gold Coin", "10g Gold Coin"], strip: ["Pure Gold, Thoughtful Value", "Browse gold coin options."], promo: ["A Timeless Gift of Gold.", "Explore Coins"] },
+          "Men": { mode: "tiles", items: ["Men's Rings", "Men's Chains", "Men's Bracelets", "Men's Pendants"], strip: ["Gold for Him", "Refined pieces designed for men."], promo: ["Strong. Refined. Timeless.", "Shop Men"] },
+          "Metal": { mode: "tiles", items: ["18K Gold", "21K Gold", "22K Gold", "Rose Gold"], strip: ["Choose Your Gold", "Shop by purity and finish."], promo: ["Gold, Your Way.", "Explore Metal"] }
+        }
+      },
+      "Diamond": {
+        side: ["Category", "Price", "Occasion", "Gender", "Metal & Stones"],
+        panels: {
+          "Category": { mode: "links", items: ["All Diamond Jewellery", "Diamond Rings", "Diamond Necklaces", "Diamond Earrings", "Diamond Pendants", "Diamond Bracelets", "Diamond Bangles", "Diamond Sets"], strip: ["Diamonds for Every Sparkle", "Discover brilliant diamond jewellery."], promo: ["Natural Diamonds. Lasting Brilliance.", "Explore Diamonds"] },
+          "Price": { mode: "tiles", items: ["Under 50K", "50K - 1L", "1L - 2L", "2L & Above"], strip: ["Brilliance for Every Budget", "Explore diamond jewellery by price."], promo: ["Find Your Diamond.", "Shop by Price"] },
+          "Occasion": { mode: "tiles", items: ["Everyday", "Engagement", "Wedding", "Anniversary", "Gifting"], strip: ["Diamonds for Life's Moments", "Choose a piece for every milestone."], promo: ["Celebrate with Diamonds.", "Explore"] },
+          "Gender": { mode: "tiles", items: ["Women", "Men", "Kids & Teens"], strip: ["Diamonds for Every Sparkle", "Discover refined diamond designs."], promo: ["Natural Diamonds.", "Explore Now"] },
+          "Metal & Stones": { mode: "tiles", items: ["White Gold", "Yellow Gold", "Rose Gold", "Solitaire", "Multi-Stone"], strip: ["Find Your Finish", "Explore diamond settings and metals."], promo: ["Crafted Around Brilliance.", "View Collection"] }
+        }
+      },
+      "Wedding": {
+        side: ["Category", "Community", "Metal"],
+        panels: {
+          "Category": { mode: "tiles", items: ["All Rivaah", "Wedding Choker", "Wedding Haram", "Wedding Bangles", "Wedding Diamond", "Wedding Mangalsutra", "Accessories"], strip: ["Made for the Big Day", "Explore wedding jewellery collections."], promo: ["Tradition, Crafted for Today.", "Explore Wedding"] },
+          "Community": { mode: "tiles", items: ["South Indian", "North Indian", "Maharashtrian", "Contemporary Bride"], strip: ["Wedding Traditions, Beautifully Told", "Explore by wedding style."], promo: ["Celebrate Your Heritage.", "Explore"] },
+          "Metal": { mode: "tiles", items: ["22K Gold", "18K Diamond", "Antique Gold", "Gemstone"], strip: ["Choose Your Wedding Finish", "Browse by metal and stone."], promo: ["Crafted for Forever.", "Shop Wedding"] }
+        }
+      },
+      "Daily Wear": {
+        side: ["Category", "Price", "Style", "Gender"],
+        panels: {
+          "Category": { mode: "links", items: ["Dailywear Jewellery", "Dailywear Rings", "Dailywear Chains", "Dailywear Mangalsutra", "Dailywear Earrings", "Dailywear Pendants"], strip: ["From Everyday Glow to Extraordinary Sparkle.", "Explore modern daily-wear designs."], promo: ["Effortless Style to Make Everyday Sparkle.", "Shop Now"] },
+          "Price": { mode: "tiles", items: ["Under 25K", "25K - 50K", "50K - 1L"], strip: ["Easy Everyday Picks", "Browse by budget."], promo: ["Everyday Luxury, Simplified.", "Explore"] },
+          "Style": { mode: "tiles", items: ["Minimal", "Classic", "Modern", "Statement"], strip: ["Find Your Daily Style", "Choose the look that feels like you."], promo: ["Made for Every Day.", "Shop"] },
+          "Gender": { mode: "tiles", items: ["Women", "Men", "Kids & Teens"], strip: ["Everyday Jewellery for Everyone", "Browse easy-to-wear designs."], promo: ["Comfort Meets Elegance.", "Explore"] }
+        }
+      },
+      "Gemstone": {
+        side: ["Category"],
+        panels: {
+          "Category": { mode: "links", items: ["Gemstone", "Gemstone Rings", "Gemstone Earrings", "Emerald Stone", "Gemstone Pendants", "Ruby"], strip: ["Colour, Crafted Beautifully", "Explore vibrant gemstone jewellery."], promo: ["Natural Gemstones, Vibrant Colours.", "Explore Now"] }
+        }
+      },
+      "Gifting": {
+        side: ["Gifts for", "Gift Card", "Price", "Occasion", "Corporate Gifting"],
+        panels: {
+          "Gifts for": { mode: "tiles", items: ["Her", "Him", "Kids"], strip: ["Celebrate Life's Joys with Venvision.", "Find jewellery for all occasions and celebrations."], promo: ["Gift Something Timeless.", "Explore Gifts"] },
+          "Gift Card": { mode: "tiles", items: ["₹5,000", "₹10,000", "₹25,000", "Custom Value"], strip: ["Let Them Choose", "Give the freedom of choice."], promo: ["Venvision Gift Card.", "View Gift Card"] },
+          "Price": { mode: "tiles", items: ["Under 10K", "10K - 25K", "25K - 50K", "50K+"], strip: ["Gifts for Every Budget", "Find something meaningful."], promo: ["Thoughtful, Beautiful, Timeless.", "Shop Gifts"] },
+          "Occasion": { mode: "tiles", items: ["Birthday", "Anniversary", "Wedding", "Festive", "New Baby"], strip: ["Gifts for Every Celebration", "Browse by occasion."], promo: ["Mark the Moment.", "Explore"] },
+          "Corporate Gifting": { mode: "tiles", items: ["Employee Gifts", "Client Gifts", "Milestones", "Bulk Orders"], strip: ["Premium Corporate Gifting", "Elegant gifting for business relationships."], promo: ["Make Every Gesture Count.", "Enquire"] }
+        }
+      }
+    };
 
-  <section class="benefits">
-    <div class="benefit"><div class="ico">▱</div><b>Free Shipping</b><span>Free delivery</span></div>
-    <div class="benefit"><div class="ico">▣</div><b>Easy Returns</b><span>Simple 14-day returns</span></div>
-    <div class="benefit"><div class="ico">♙</div><b>Secure Payments</b><span>Safe & protected checkout</span></div>
-    <div class="benefit"><div class="ico">⌕</div><b>24/7 Support</b><span>We're here to help</span></div>
-  </section>
+    const order = ["All Jewellery", "Gold", "Diamond", "Wedding", "Daily Wear", "Gemstone", "Gifting"];
+    const nav = document.getElementById("nav"), mega = document.getElementById("mega"), side = document.getElementById("megaSide"), content = document.getElementById("megaContent"), promo = document.getElementById("megaPromo");
+    let timer;
 
-  <section class="story">
-    <div class="story-img"></div>
-    <div class="story-copy"><small>EXCLUSIVE JEWELLERY OFFERS</small><h2>Timeless pieces,<br>exceptional value.</h2><p>Discover selected jewellery at special prices, crafted to make every moment shine.</p><a href="#">Shop Collection →</a></div>
-  </section>
-
-  <section class="shop-by">
-    <div class="shop-head"><h2>Shop by Category</h2><a href="#">View All Categories →</a></div>
-    <div class="shop-cards">
-      <div class="shop-card"><div class="photo"><div class="person"></div></div><b>Ladies Jewellery</b><a href="#">Shop Now →</a></div>
-      <div class="shop-card"><div class="photo"><div class="person"></div></div><b>Men's Jewellery</b><a href="#">Shop Now →</a></div>
-      <div class="shop-card"><div class="photo"><div class="person"></div></div><b>Kids' Jewellery</b><a href="#">Shop Now →</a></div>
-    </div>
-  </section>
-
-  <section class="newsletter">
-    <h2>Join Our Newsletter</h2><p>Get updates on jewellery collections and special launches.</p>
-    <div class="signup"><span>✉</span><input placeholder="Email address"><button>Signup</button></div>
-  </section>
-</main>
-
-<footer class="footer">
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div><span class="foot-brand">venvision.</span><span class="foot-sub">Fine Jewellery & Gold</span></div>
-      <div class="foot-links"><a>Home</a><a>Shop</a><a>New Arrivals</a><a>Custom Jewellery</a><a>Contact Us</a></div>
-    </div>
-    <div class="foot-line"></div>
-    <div class="foot-bottom"><span>© 2026 Venvision. All rights reserved.</span><div class="policies"><span>Privacy Policy</span><span>Terms of Use</span></div><div class="social"><span>◎</span><span>f</span><span>▶</span></div></div>
-  </div>
-</footer>
-
-<script>
-const IMAGES = {
-  // 1. Rings (close-up product photography)
-  "Finger Rings": "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
-  "Gold Rings": "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
-  "Diamond Rings": "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
-  "Dailywear Rings": "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
-  "Gemstone Rings": "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=800&auto=format&fit=crop&q=80",
-  "Men's Rings": "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=800&auto=format&fit=crop&q=80",
-  "Solitaire": "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
-
-  // 2. Earrings (close-up product photography)
-  "Earrings": "https://images.unsplash.com/photo-1630019852942-f89202989a59?w=800&auto=format&fit=crop&q=80",
-  "Gold Earrings": "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&auto=format&fit=crop&q=80",
-  "Diamond Earrings": "https://images.unsplash.com/photo-1630019852942-f89202989a59?w=800&auto=format&fit=crop&q=80",
-  "Dailywear Earrings": "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&auto=format&fit=crop&q=80",
-  "Gemstone Earrings": "https://images.unsplash.com/photo-1630019852942-f89202989a59?w=800&auto=format&fit=crop&q=80",
-  "Pendants & Earring Set": "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&auto=format&fit=crop&q=80",
-
-  // 3. Necklaces (close-up product photography)
-  "Necklaces": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=80",
-  "Gold Necklaces": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=80",
-  "Diamond Necklaces": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=80",
-  "Wedding Choker": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=80",
-  "Wedding Haram": "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=800&auto=format&fit=crop&q=80",
-  "Chains": "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=800&auto=format&fit=crop&q=80",
-  "Gold Chains": "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=800&auto=format&fit=crop&q=80",
-  "Men's Chains": "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=800&auto=format&fit=crop&q=80",
-  "Dailywear Chains": "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=800&auto=format&fit=crop&q=80",
-  "Mangalsutra": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=80",
-  "Wedding Mangalsutra": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=80",
-  "Dailywear Mangalsutra": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=80",
-  "Necklace Set": "https://images.unsplash.com/photo-1594552072238-b8a33785b261?w=800&auto=format&fit=crop&q=80",
-  "Gold Sets": "https://images.unsplash.com/photo-1594552072238-b8a33785b261?w=800&auto=format&fit=crop&q=80",
-  "Diamond Sets": "https://images.unsplash.com/photo-1594552072238-b8a33785b261?w=800&auto=format&fit=crop&q=80",
-
-  // 4. Bracelets (close-up product photography)
-  "Bracelets": "https://images.unsplash.com/photo-1590548784585-643d2b9f2925?w=800&auto=format&fit=crop&q=80",
-  "Gold Bracelets": "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=800&auto=format&fit=crop&q=80",
-  "Diamond Bracelets": "https://images.unsplash.com/photo-1590548784585-643d2b9f2925?w=800&auto=format&fit=crop&q=80",
-  "Men's Bracelets": "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=800&auto=format&fit=crop&q=80",
-
-  // 5. Bangles (close-up product photography)
-  "Bangles": "https://images.unsplash.com/photo-1600003014755-ba31aa59c4b6?w=800&auto=format&fit=crop&q=80",
-  "Gold Bangles": "https://images.unsplash.com/photo-1600003014755-ba31aa59c4b6?w=800&auto=format&fit=crop&q=80",
-  "Diamond Bangles": "https://images.unsplash.com/photo-1535632787350-4e68ef0ac584?w=800&auto=format&fit=crop&q=80",
-  "Wedding Bangles": "https://images.unsplash.com/photo-1600003014755-ba31aa59c4b6?w=800&auto=format&fit=crop&q=80",
-
-  // 6. Pendants (close-up product photography)
-  "Pendants": "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&auto=format&fit=crop&q=80",
-  "Gold Pendants": "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&auto=format&fit=crop&q=80",
-  "Diamond Pendants": "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&auto=format&fit=crop&q=80",
-  "Dailywear Pendants": "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&auto=format&fit=crop&q=80",
-  "Gemstone Pendants": "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&auto=format&fit=crop&q=80",
-  "Men's Pendants": "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&auto=format&fit=crop&q=80",
-  "Nose Pin": "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
-
-  // 7. Wedding Jewellery (bride wearing premium gold/diamond jewellery)
-  "Wedding": "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&auto=format&fit=crop&q=80",
-  "All Rivaah": "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&auto=format&fit=crop&q=80",
-  "Wedding Diamond": "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&auto=format&fit=crop&q=80",
-  "Accessories": "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&auto=format&fit=crop&q=80",
-  "South Indian": "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&auto=format&fit=crop&q=80",
-  "North Indian": "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&auto=format&fit=crop&q=80",
-  "Maharashtrian": "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&auto=format&fit=crop&q=80",
-  "Contemporary Bride": "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&auto=format&fit=crop&q=80",
-
-  // 8. Men's Jewellery (male model wearing ring, bracelet or chain)
-  "Men": "https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=800&auto=format&fit=crop&q=80",
-  "Him": "https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=800&auto=format&fit=crop&q=80",
-  "Men's Jewellery": "https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=800&auto=format&fit=crop&q=80",
-
-  // 9. Women's Jewellery (elegant woman wearing necklace or earrings)
-  "Women": "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?w=800&auto=format&fit=crop&q=80",
-  "Her": "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?w=800&auto=format&fit=crop&q=80",
-  "Ladies Jewellery": "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?w=800&auto=format&fit=crop&q=80",
-
-  // 10. Kids Jewellery (child wearing small safe jewellery)
-  "Kids & Teens": "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800&auto=format&fit=crop&q=80",
-  "Kids": "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800&auto=format&fit=crop&q=80",
-  "Kids' Jewellery": "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800&auto=format&fit=crop&q=80",
-
-  // 11. Gemstone Jewellery (close-up gemstone photography: emerald/ruby)
-  "Gemstone": "https://images.unsplash.com/photo-1615655406736-b37c4fabf923?w=800&auto=format&fit=crop&q=80",
-  "Emerald Stone": "https://images.unsplash.com/photo-1615655406736-b37c4fabf923?w=800&auto=format&fit=crop&q=80",
-  "Ruby": "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=800&auto=format&fit=crop&q=80",
-
-  // Gold Coins & Bullion
-  "1g Gold Coin": "https://images.unsplash.com/photo-1610375461246-83df859d849d?w=800&auto=format&fit=crop&q=80",
-  "2g Gold Coin": "https://images.unsplash.com/photo-1610375461246-83df859d849d?w=800&auto=format&fit=crop&q=80",
-  "5g Gold Coin": "https://images.unsplash.com/photo-1610375461246-83df859d849d?w=800&auto=format&fit=crop&q=80",
-  "10g Gold Coin": "https://images.unsplash.com/photo-1610375461246-83df859d849d?w=800&auto=format&fit=crop&q=80",
-
-  // Metals & Stones
-  "18K Gold": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=80",
-  "21K Gold": "https://images.unsplash.com/photo-1600003014755-ba31aa59c4b6?w=800&auto=format&fit=crop&q=80",
-  "22K Gold": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=80",
-  "Rose Gold": "https://images.unsplash.com/photo-1590548784585-643d2b9f2925?w=800&auto=format&fit=crop&q=80",
-  "White Gold": "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
-  "Yellow Gold": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=80",
-  "Antique Gold": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=80",
-  "Multi-Stone": "https://images.unsplash.com/photo-1615655406736-b37c4fabf923?w=800&auto=format&fit=crop&q=80",
-
-  // Occasions / Styles / Others
-  "Daily Wear": "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&auto=format&fit=crop&q=80",
-  "Work Wear": "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
-  "Festive": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=80",
-  "Gifting": "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&auto=format&fit=crop&q=80",
-  "Special Moments": "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
-  "All Jewellery": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=80",
-  "All Gold Jewellery": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=80",
-  "All Diamond Jewellery": "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
-  "Dailywear Jewellery": "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&auto=format&fit=crop&q=80",
-  "Minimal": "https://images.unsplash.com/photo-1590548784585-643d2b9f2925?w=800&auto=format&fit=crop&q=80",
-  "Classic": "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
-  "Modern": "https://images.unsplash.com/photo-1615655406736-b37c4fabf923?w=800&auto=format&fit=crop&q=80",
-  "Statement": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=80"
-};
-
-function imageFor(t){
- if(!t) return IMAGES["All Jewellery"];
- if(IMAGES[t]) return IMAGES[t];
- const low = t.toLowerCase();
- if(low.includes("ring")) return IMAGES["Finger Rings"];
- if(low.includes("ear")) return IMAGES["Earrings"];
- if(low.includes("necklace") || low.includes("chain") || low.includes("choker") || low.includes("haram")) return IMAGES["Necklaces"];
- if(low.includes("bangle")) return IMAGES["Bangles"];
- if(low.includes("bracelet")) return IMAGES["Bracelets"];
- if(low.includes("pendant")) return IMAGES["Pendants"];
- if(low.includes("bride") || low.includes("wedding") || low.includes("rivaah")) return IMAGES["Wedding"];
- if(low.includes("men") || low.includes("him")) return IMAGES["Men"];
- if(low.includes("women") || low.includes("her") || low.includes("ladies")) return IMAGES["Women"];
- if(low.includes("kid") || low.includes("child") || low.includes("teen")) return IMAGES["Kids & Teens"];
- if(low.includes("gem") || low.includes("emerald") || low.includes("ruby")) return IMAGES["Gemstone"];
- if(low.includes("coin")) return IMAGES["1g Gold Coin"];
- if(low.includes("diamond")) return IMAGES["Solitaire"];
- if(low.includes("gold")) return IMAGES["All Gold Jewellery"];
- return "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=80";
-}
-
-const DATA={
-"All Jewellery":{
- side:["Category","Price","Occasion","Gender"],
- panels:{
-  "Category":{mode:"tiles",items:["Finger Rings","Earrings","Necklaces","Bracelets","Bangles","Pendants","Mangalsutra","Chains","Nose Pin","Necklace Set","Pendants & Earring Set","All Jewellery"],strip:["Jewellery for Every Moment—See It All Here!","Explore the full jewellery collection."],promo:["Discover Timeless Crafted Jewellery.","Explore Now"]},
-  "Price":{mode:"tiles",items:["Under 25K","25K - 50K","50K - 1L","1L & Above"],strip:["Find Jewellery for Every Budget","Explore by price range."],promo:["Find Your Perfect Piece.","Shop by Price"]},
-  "Occasion":{mode:"tiles",items:["Daily Wear","Work Wear","Festive","Wedding","Gifting","Special Moments"],strip:["Jewellery for Every Occasion","Choose pieces for every moment."],promo:["Made for Every Celebration.","Explore"]},
-  "Gender":{mode:"tiles",items:["Women","Men","Kids & Teens"],strip:["Made for Everyone","Explore jewellery for women, men and kids."],promo:["Find Their Perfect Style.","Shop Now"]}
- }},
-"Gold":{
- side:["Category","Price","Occasion","Gold Coin","Men","Metal"],
- panels:{
-  "Category":{mode:"links",items:["All Gold Jewellery","Gold Rings","Gold Necklaces","Gold Earrings","Gold Bangles","Gold Bracelets","Gold Pendants","Gold Chains","Gold Sets"],strip:["The Art of Gold","Discover timeless gold designs."],promo:["Golden Classics, Modern Grace.","Explore Gold"]},
-  "Price":{mode:"tiles",items:["<25K","25K - 50K","50K - 1L","1L & Above"],strip:["From Classic to Contemporary.","Explore gold designs across every budget."],promo:["Radiance in Every Range.","View Gold"]},
-  "Occasion":{mode:"tiles",items:["Daily Wear","Festive","Wedding","Gifting"],strip:["Gold for Every Moment","From everyday classics to celebration pieces."],promo:["A Golden Story for Every Occasion.","Shop Gold"]},
-  "Gold Coin":{mode:"tiles",items:["1g Gold Coin","2g Gold Coin","5g Gold Coin","10g Gold Coin"],strip:["Pure Gold, Thoughtful Value","Browse gold coin options."],promo:["A Timeless Gift of Gold.","Explore Coins"]},
-  "Men":{mode:"tiles",items:["Men's Rings","Men's Chains","Men's Bracelets","Men's Pendants"],strip:["Gold for Him","Refined pieces designed for men."],promo:["Strong. Refined. Timeless.","Shop Men"]},
-  "Metal":{mode:"tiles",items:["18K Gold","21K Gold","22K Gold","Rose Gold"],strip:["Choose Your Gold","Shop by purity and finish."],promo:["Gold, Your Way.","Explore Metal"]}
- }},
-"Diamond":{
- side:["Category","Price","Occasion","Gender","Metal & Stones"],
- panels:{
-  "Category":{mode:"links",items:["All Diamond Jewellery","Diamond Rings","Diamond Necklaces","Diamond Earrings","Diamond Pendants","Diamond Bracelets","Diamond Bangles","Diamond Sets"],strip:["Diamonds for Every Sparkle","Discover brilliant diamond jewellery."],promo:["Natural Diamonds. Lasting Brilliance.","Explore Diamonds"]},
-  "Price":{mode:"tiles",items:["Under 50K","50K - 1L","1L - 2L","2L & Above"],strip:["Brilliance for Every Budget","Explore diamond jewellery by price."],promo:["Find Your Diamond.","Shop by Price"]},
-  "Occasion":{mode:"tiles",items:["Everyday","Engagement","Wedding","Anniversary","Gifting"],strip:["Diamonds for Life's Moments","Choose a piece for every milestone."],promo:["Celebrate with Diamonds.","Explore"]},
-  "Gender":{mode:"tiles",items:["Women","Men","Kids & Teens"],strip:["Diamonds for Every Sparkle","Discover refined diamond designs."],promo:["Natural Diamonds.","Explore Now"]},
-  "Metal & Stones":{mode:"tiles",items:["White Gold","Yellow Gold","Rose Gold","Solitaire","Multi-Stone"],strip:["Find Your Finish","Explore diamond settings and metals."],promo:["Crafted Around Brilliance.","View Collection"]}
- }},
-"Wedding":{
- side:["Category","Community","Metal"],
- panels:{
-  "Category":{mode:"tiles",items:["All Rivaah","Wedding Choker","Wedding Haram","Wedding Bangles","Wedding Diamond","Wedding Mangalsutra","Accessories"],strip:["Made for the Big Day","Explore wedding jewellery collections."],promo:["Tradition, Crafted for Today.","Explore Wedding"]},
-  "Community":{mode:"tiles",items:["South Indian","North Indian","Maharashtrian","Contemporary Bride"],strip:["Wedding Traditions, Beautifully Told","Explore by wedding style."],promo:["Celebrate Your Heritage.","Explore"]},
-  "Metal":{mode:"tiles",items:["22K Gold","18K Diamond","Antique Gold","Gemstone"],strip:["Choose Your Wedding Finish","Browse by metal and stone."],promo:["Crafted for Forever.","Shop Wedding"]}
- }},
-"Daily Wear":{
- side:["Category","Price","Style","Gender"],
- panels:{
-  "Category":{mode:"links",items:["Dailywear Jewellery","Dailywear Rings","Dailywear Chains","Dailywear Mangalsutra","Dailywear Earrings","Dailywear Pendants"],strip:["From Everyday Glow to Extraordinary Sparkle.","Explore modern daily-wear designs."],promo:["Effortless Style to Make Everyday Sparkle.","Shop Now"]},
-  "Price":{mode:"tiles",items:["Under 25K","25K - 50K","50K - 1L"],strip:["Easy Everyday Picks","Browse by budget."],promo:["Everyday Luxury, Simplified.","Explore"]},
-  "Style":{mode:"tiles",items:["Minimal","Classic","Modern","Statement"],strip:["Find Your Daily Style","Choose the look that feels like you."],promo:["Made for Every Day.","Shop"]},
-  "Gender":{mode:"tiles",items:["Women","Men","Kids & Teens"],strip:["Everyday Jewellery for Everyone","Browse easy-to-wear designs."],promo:["Comfort Meets Elegance.","Explore"]}
- }},
-"Gemstone":{
- side:["Category"],
- panels:{
-  "Category":{mode:"tiles",items:["Gemstone","Gemstone Rings","Gemstone Earrings","Emerald Stone","Gemstone Pendants","Ruby"],strip:["Colour, Crafted Beautifully","Explore vibrant gemstone jewellery."],promo:["Natural Gemstones, Vibrant Colours.","Explore Now"]}
- }},
-"Gifting":{
- side:["Gifts for","Gift Card","Price","Occasion","Corporate Gifting"],
- panels:{
-  "Gifts for":{mode:"tiles",items:["Her","Him","Kids"],strip:["Celebrate Life's Joys with Venvision.","Find jewellery for all occasions and celebrations."],promo:["Gift Something Timeless.","Explore Gifts"]},
-  "Gift Card":{mode:"tiles",items:["₹5,000","₹10,000","₹25,000","Custom Value"],strip:["Let Them Choose","Give the freedom of choice."],promo:["Venvision Gift Card.","View Gift Card"]},
-  "Price":{mode:"tiles",items:["Under 10K","10K - 25K","25K - 50K","50K+"],strip:["Gifts for Every Budget","Find something meaningful."],promo:["Thoughtful, Beautiful, Timeless.","Shop Gifts"]},
-  "Occasion":{mode:"tiles",items:["Birthday","Anniversary","Wedding","Festive","New Baby"],strip:["Gifts for Every Celebration","Browse by occasion."],promo:["Mark the Moment.","Explore"]},
-  "Corporate Gifting":{mode:"tiles",items:["Employee Gifts","Client Gifts","Milestones","Bulk Orders"],strip:["Premium Corporate Gifting","Elegant gifting for business relationships."],promo:["Make Every Gesture Count.","Enquire"]}
- }}
-};
-
-const order=["All Jewellery","Gold","Diamond","Wedding","Daily Wear","Gemstone","Gifting"];
-const nav=document.getElementById("nav"),mega=document.getElementById("mega"),side=document.getElementById("megaSide"),content=document.getElementById("megaContent"),promo=document.getElementById("megaPromo");
-let timer;
-let currentPromoDefault = { img: "", title: "", link: "#" };
-
-function iconFor(t){
- t=t.toLowerCase();
- if(t.includes("ring"))return"◌"; if(t.includes("necklace")||t.includes("chain"))return"⌁";
- if(t.includes("ear"))return"♧"; if(t.includes("pendant"))return"◇"; if(t.includes("bangle")||t.includes("bracelet"))return"⊙";
- if(t.includes("diamond"))return"◇"; if(t.includes("gold"))return"◈"; if(t.includes("kids"))return"✦";
- if(t.includes("men"))return"◌"; if(t.includes("women"))return"◉"; return"✧";
-}
-
-nav.innerHTML=order.map(n=>`<button data-nav="${n}">${n}</button>`).join("");
-nav.querySelectorAll("button").forEach(btn=>{
- btn.addEventListener("mouseenter",()=>openNav(btn.dataset.nav));
- btn.addEventListener("click",()=>openNav(btn.dataset.nav));
-});
-
-function openNav(name){
- clearTimeout(timer);
- nav.querySelectorAll("button").forEach(b=>b.classList.toggle("active",b.dataset.nav===name));
- mega.classList.add("open");
- renderSide(name,DATA[name].side[0]);
-}
-
-function renderSide(name,active){
- side.innerHTML=DATA[name].side.map(s=>`<button class="${s===active?'active':''}" data-s="${s}">${s}</button>`).join("");
- side.querySelectorAll("button").forEach(b=>{
-   b.addEventListener("mouseenter",()=>renderSide(name,b.dataset.s));
-   b.addEventListener("click",()=>renderSide(name,b.dataset.s));
- });
- renderPanel(DATA[name].panels[active], name, active);
-}
-
-function promoImageFor(p, activeSide, navName){
- if(activeSide === "Men" || activeSide === "Him") return IMAGES["Men"];
- if(activeSide === "Women" || activeSide === "Her") return IMAGES["Women"];
- if(activeSide === "Kids" || activeSide === "Kids & Teens") return IMAGES["Kids & Teens"];
- if(navName === "Wedding" || activeSide === "Wedding") return IMAGES["Wedding"];
- if(navName === "Gemstone") return IMAGES["Gemstone"];
- if(navName === "Gold") return IMAGES["All Gold Jewellery"];
- if(navName === "Diamond") return IMAGES["All Diamond Jewellery"];
- if(navName === "Daily Wear") return IMAGES["Daily Wear"];
- if(navName === "Gifting") return IMAGES["Gifting"];
- return IMAGES["Finger Rings"];
-}
-
-function renderPanel(p, navName, activeSide){
- if(p.mode==="links"){
-  const cols=[[],[],[]]; p.items.forEach((x,i)=>cols[i%3].push(x));
-  content.innerHTML=`<div class="link-grid">${cols.map(c=>`<div class="col">${c.map(x=>`<a href="#" class="menu-link" onmouseenter="previewPromo('${x}')" onmouseleave="restorePromo()"><span class="menu-ico">${iconFor(x)}</span><span class="menu-name">${x}</span></a>`).join("")}</div>`).join("")}</div>${strip(p.strip)}`;
- }else{
-  content.innerHTML=`<div class="tile-grid">${p.items.map(x=>`<div class="tile" onmouseenter="previewPromo('${x}')" onmouseleave="restorePromo()"><div class="tile-art"><img src="${imageFor(x)}" alt="${x}" class="tile-img" loading="lazy"></div><div class="tile-name">${x}</div></div>`).join("")}</div>${strip(p.strip)}`;
- }
- const promoImg = promoImageFor(p, activeSide, navName);
- currentPromoDefault = { img: promoImg, title: p.promo[0], link: p.promo[1] };
- promo.innerHTML=`<div class="promo-art"><img src="${promoImg}" alt="${p.promo[0]}" class="promo-img" id="promoImgEl" loading="lazy"></div><h3 id="promoTitleEl">${p.promo[0]}</h3><a href="#" id="promoLinkEl">${p.promo[1]} ↗</a>`;
-}
-
-function previewPromo(title){
- const imgEl = document.getElementById("promoImgEl");
- const titleEl = document.getElementById("promoTitleEl");
- const linkEl = document.getElementById("promoLinkEl");
- if(imgEl && title){
-   imgEl.src = imageFor(title);
-   imgEl.alt = title;
- }
- if(titleEl && title){
-   titleEl.textContent = title;
- }
- if(linkEl){
-   linkEl.textContent = "Explore " + title + " ↗";
- }
-}
-
-function restorePromo(){
- const imgEl = document.getElementById("promoImgEl");
- const titleEl = document.getElementById("promoTitleEl");
- const linkEl = document.getElementById("promoLinkEl");
- if(imgEl && currentPromoDefault.img){
-   imgEl.src = currentPromoDefault.img;
-   imgEl.alt = currentPromoDefault.title;
- }
- if(titleEl && currentPromoDefault.title){
-   titleEl.textContent = currentPromoDefault.title;
- }
- if(linkEl && currentPromoDefault.link){
-   linkEl.textContent = currentPromoDefault.link + " ↗";
- }
-}
-
-function strip(s){
-  return `<div class="mini-strip">
-    <div class="strip-atelier-preview">
-      <div class="strip-thumb-stack">
-        <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=200&auto=format&fit=crop&q=80" alt="Ring" class="strip-thumb" loading="lazy" />
-        <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=200&auto=format&fit=crop&q=80" alt="Necklace" class="strip-thumb" loading="lazy" />
-        <img src="https://images.unsplash.com/photo-1615655406736-b37c4fabf923?w=200&auto=format&fit=crop&q=80" alt="Gemstone" class="strip-thumb" loading="lazy" />
-      </div>
-      <span class="atelier-badge">✦ ATELIER</span>
-    </div>
-    <div class="strip-copy">
-      <b>Create Your Own Jewellery</b>
-      <span>Design a piece made uniquely for you.</span>
-    </div>
-    <a href="customization.html" class="custom-cta-btn">Start Customization →</a>
-  </div>`;
-}
-
-mega.addEventListener("mouseenter",()=>clearTimeout(timer));
-mega.addEventListener("mouseleave",()=>{timer=setTimeout(()=>{mega.classList.remove("open");nav.querySelectorAll("button").forEach(b=>b.classList.remove("active"))},170)});
-document.addEventListener("keydown",e=>{if(e.key==="Escape"){mega.classList.remove("open");nav.querySelectorAll("button").forEach(b=>b.classList.remove("active"))}});
-</script>
+    function iconFor(t) {
+      t = t.toLowerCase();
+      if (t.includes("ring")) return "◌"; if (t.includes("necklace") || t.includes("chain")) return "⌁";
+      if (t.includes("ear")) return "♧"; if (t.includes("pendant")) return "◇"; if (t.includes("bangle") || t.includes("bracelet")) return "⊙";
+      if (t.includes("diamond")) return "◇"; if (t.includes("gold")) return "◈"; if (t.includes("kids")) return "✦";
+      if (t.includes("men")) return "◌"; if (t.includes("women")) return "◉"; return "✧";
+    }
+    nav.innerHTML = order.map(n => `<button data-nav="${n}">${n}</button>`).join("");
+    nav.querySelectorAll("button").forEach(btn => {
+      btn.addEventListener("mouseenter", () => openNav(btn.dataset.nav));
+      btn.addEventListener("click", () => openNav(btn.dataset.nav));
+    });
+    function openNav(name) {
+      clearTimeout(timer);
+      nav.querySelectorAll("button").forEach(b => b.classList.toggle("active", b.dataset.nav === name));
+      mega.classList.add("open");
+      renderSide(name, DATA[name].side[0]);
+    }
+    function renderSide(name, active) {
+      side.innerHTML = DATA[name].side.map(s => `<button class="${s === active ? 'active' : ''}" data-s="${s}">${s}</button>`).join("");
+      side.querySelectorAll("button").forEach(b => {
+        b.addEventListener("mouseenter", () => renderSide(name, b.dataset.s));
+        b.addEventListener("click", () => renderSide(name, b.dataset.s));
+      });
+      renderPanel(DATA[name].panels[active]);
+    }
+    function renderPanel(p) {
+      if (p.mode === "links") {
+        const cols = [[], [], []]; p.items.forEach((x, i) => cols[i % 3].push(x));
+        content.innerHTML = `<div class="link-grid">${cols.map(c => `<div class="col">${c.map(x => `<a href="#" class="menu-link"><span class="menu-ico">${iconFor(x)}</span><span class="menu-name">${x}</span></a>`).join("")}</div>`).join("")}</div>${strip(p.strip)}`;
+      } else {
+        content.innerHTML = `<div class="tile-grid">${p.items.map(x => `<div class="tile"><div class="tile-art">${iconFor(x)}</div><div class="tile-name">${x}</div></div>`).join("")}</div>${strip(p.strip)}`;
+      }
+      promo.innerHTML = `<div class="promo-art"></div><h3>${p.promo[0]}</h3><a href="#">${p.promo[1]} ↗</a>`;
+    }
+    function strip(s) { return `<div class="mini-strip"><div class="dots"><div class="dot">◇</div><div class="dot">◌</div><div class="dot">✦</div></div><div class="strip-copy"><b>${s[0]}</b><span>${s[1]}</span></div><button class="view">View All</button></div>` }
+    mega.addEventListener("mouseenter", () => clearTimeout(timer));
+    mega.addEventListener("mouseleave", () => { timer = setTimeout(() => { mega.classList.remove("open"); nav.querySelectorAll("button").forEach(b => b.classList.remove("active")) }, 170) });
+    document.addEventListener("keydown", e => { if (e.key === "Escape") { mega.classList.remove("open"); nav.querySelectorAll("button").forEach(b => b.classList.remove("active")) } });
+  </script>
 </body>
+
 </html>
