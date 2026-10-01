@@ -1,232 +1,533 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Venvision Bespoke Jewellery Atelier | Create Your Own Jewellery</title>
-<style>
-:root{
-  --burgundy:#650006;
-  --deep:#3d0004;
-  --ivory:#fffaf4;
-  --sand:#f2e5d6;
-  --sand2:#ead6c0;
-  --gold:#d4b483;
-  --gold-dark:#b38c52;
-  --text:#2d2724;
-  --muted:#7d716a;
-  --line:#eadfd5;
-}
-*{box-sizing:border-box}
-body{margin:0;background:var(--ivory);color:var(--text);font-family:Inter,Arial,sans-serif}
-button,input,select,textarea{font:inherit}
-a{text-decoration:none;color:inherit}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Venvision Bespoke Jewellery Atelier | Create Your Own Jewellery</title>
+  <style>
+    :root {
+      --burgundy: #650006;
+      --deep: #3d0004;
+      --ivory: #fffaf4;
+      --sand: #f2e5d6;
+      --sand2: #ead6c0;
+      --gold: #d4b483;
+      --gold-dark: #b38c52;
+      --text: #2d2724;
+      --muted: #7d716a;
+      --line: #eadfd5;
+    }
 
-.topbar{height:30px;background:#ead9c8;color:#4d4038;display:flex;align-items:center;justify-content:center;font-size:11px;gap:10px}
-.header{position:sticky;top:0;z-index:40;background:rgba(255,250,244,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.header-row{max-width:1180px;margin:auto;height:66px;padding:0 22px;display:flex;align-items:center;justify-content:space-between}
-.brand{display:flex;align-items:center;gap:10px;color:var(--burgundy);font-weight:700;font-size:20px}
-.logo{width:30px;height:30px;border:1.5px solid var(--burgundy);border-radius:50%;display:grid;place-items:center;font-family:Georgia,serif;position:relative}
-.logo:before{content:"◇";position:absolute;top:-11px;background:var(--ivory);padding:0 2px;font-size:14px}
-.back-link{font-size:12px;color:var(--burgundy);font-weight:600;display:inline-flex;align-items:center;gap:6px}
+    * {
+      box-sizing: border-box
+    }
 
-.container{max-width:1160px;margin:32px auto 60px;padding:0 22px}
-.atelier-header{text-align:center;max-width:680px;margin:0 auto 36px}
-.atelier-header small{color:var(--gold-dark);letter-spacing:2px;font-weight:700;font-size:11px;text-transform:uppercase}
-.atelier-header h1{font-family:Georgia,serif;color:var(--burgundy);font-size:38px;margin:8px 0 10px}
-.atelier-header p{color:var(--muted);font-size:14px;line-height:1.6}
+    body {
+      margin: 0;
+      background: var(--ivory);
+      color: var(--text);
+      font-family: Inter, Arial, sans-serif
+    }
 
-.builder-layout{display:grid;grid-template-columns:1.1fr 1fr;gap:36px;align-items:start}
-.preview-card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 12px 36px rgba(61,0,4,.05);position:sticky;top:90px}
-.preview-stage{height:420px;background:#f6eee5;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.preview-img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
-.preview-badge{position:absolute;top:16px;left:16px;background:rgba(255,255,255,.9);backdrop-filter:blur(6px);padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;color:var(--burgundy);border:1px solid var(--line)}
-.engraving-overlay{position:absolute;bottom:20px;left:20px;right:20px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);padding:10px 16px;border-radius:10px;border:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;font-size:12px}
-.engraving-overlay b{color:var(--burgundy);font-family:Georgia,serif}
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit
+    }
 
-.options-pane{background:#fff;border:1px solid var(--line);border-radius:18px;padding:30px;box-shadow:0 12px 36px rgba(61,0,4,.05)}
-.opt-section{margin-bottom:28px}
-.opt-section:last-child{margin-bottom:0}
-.opt-title{font-family:Georgia,serif;font-size:16px;color:var(--burgundy);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
-.opt-title span{font-family:Inter,Arial,sans-serif;font-size:11px;color:var(--muted);font-weight:normal}
+    a {
+      text-decoration: none;
+      color: inherit
+    }
 
-.grid-choices{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.choice-btn{border:1px solid var(--line);background:#fffaf6;padding:12px 10px;border-radius:10px;cursor:pointer;text-align:center;transition:all .2s ease}
-.choice-btn:hover{border-color:var(--gold);background:#fff}
-.choice-btn.active{border-color:var(--burgundy);background:#fbf0f1;color:var(--burgundy);box-shadow:0 0 0 1px var(--burgundy)}
-.choice-btn b{display:block;font-size:13px;margin-bottom:3px}
-.choice-btn small{font-size:10px;color:var(--muted)}
+    .topbar {
+      height: 30px;
+      background: #ead9c8;
+      color: #4d4038;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      gap: 10px
+    }
 
-.engrave-input{width:100%;border:1px solid var(--line);background:#fffaf6;padding:12px 14px;border-radius:10px;font-size:13px;outline:none}
-.engrave-input:focus{border-color:var(--burgundy);background:#fff}
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(255, 250, 244, .96);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line)
+    }
 
-.price-summary{background:#fdf9f4;border:1px solid #ebd9c7;border-radius:14px;padding:18px 20px;margin-top:24px}
-.price-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}
-.price-row.total{border-top:1px solid #e8d7c4;padding-top:10px;margin-top:10px;font-size:16px;color:var(--burgundy);font-weight:700}
-.submit-btn{width:100%;margin-top:20px;background:var(--burgundy);color:#fff;border:0;border-radius:8px;padding:14px;font-size:13px;font-weight:600;letter-spacing:.4px;cursor:pointer;transition:all .2s ease}
-.submit-btn:hover{background:var(--deep);transform:translateY(-1px);box-shadow:0 6px 18px rgba(101,0,6,.28)}
+    .header-row {
+      max-width: 1180px;
+      margin: auto;
+      height: 66px;
+      padding: 0 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between
+    }
 
-@media(max-width:850px){
-  .builder-layout{grid-template-columns:1fr}
-  .preview-card{position:static}
-  .preview-stage{height:300px}
-}
-</style>
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--burgundy);
+      font-weight: 700;
+      font-size: 20px
+    }
+
+    .logo {
+      width: 30px;
+      height: 30px;
+      border: 1.5px solid var(--burgundy);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-family: Georgia, serif;
+      position: relative
+    }
+
+    .logo:before {
+      content: "◇";
+      position: absolute;
+      top: -11px;
+      background: var(--ivory);
+      padding: 0 2px;
+      font-size: 14px
+    }
+
+    .back-link {
+      font-size: 12px;
+      color: var(--burgundy);
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .container {
+      max-width: 1160px;
+      margin: 32px auto 60px;
+      padding: 0 22px
+    }
+
+    .atelier-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 36px
+    }
+
+    .atelier-header small {
+      color: var(--gold-dark);
+      letter-spacing: 2px;
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase
+    }
+
+    .atelier-header h1 {
+      font-family: Georgia, serif;
+      color: var(--burgundy);
+      font-size: 38px;
+      margin: 8px 0 10px
+    }
+
+    .atelier-header p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6
+    }
+
+    .builder-layout {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 36px;
+      align-items: start
+    }
+
+    .preview-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 12px 36px rgba(61, 0, 4, .05);
+      position: sticky;
+      top: 90px
+    }
+
+    .preview-stage {
+      height: 420px;
+      background: #f6eee5;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden
+    }
+
+    .preview-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .4s ease
+    }
+
+    .preview-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: rgba(255, 255, 255, .9);
+      backdrop-filter: blur(6px);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--burgundy);
+      border: 1px solid var(--line)
+    }
+
+    .engraving-overlay {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, .92);
+      backdrop-filter: blur(8px);
+      padding: 10px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px
+    }
+
+    .engraving-overlay b {
+      color: var(--burgundy);
+      font-family: Georgia, serif
+    }
+
+    .options-pane {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: 0 12px 36px rgba(61, 0, 4, .05)
+    }
+
+    .opt-section {
+      margin-bottom: 28px
+    }
+
+    .opt-section:last-child {
+      margin-bottom: 0
+    }
+
+    .opt-title {
+      font-family: Georgia, serif;
+      font-size: 16px;
+      color: var(--burgundy);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between
+    }
+
+    .opt-title span {
+      font-family: Inter, Arial, sans-serif;
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: normal
+    }
+
+    .grid-choices {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px
+    }
+
+    .choice-btn {
+      border: 1px solid var(--line);
+      background: #fffaf6;
+      padding: 12px 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      text-align: center;
+      transition: all .2s ease
+    }
+
+    .choice-btn:hover {
+      border-color: var(--gold);
+      background: #fff
+    }
+
+    .choice-btn.active {
+      border-color: var(--burgundy);
+      background: #fbf0f1;
+      color: var(--burgundy);
+      box-shadow: 0 0 0 1px var(--burgundy)
+    }
+
+    .choice-btn b {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 3px
+    }
+
+    .choice-btn small {
+      font-size: 10px;
+      color: var(--muted)
+    }
+
+    .engrave-input {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: #fffaf6;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      outline: none
+    }
+
+    .engrave-input:focus {
+      border-color: var(--burgundy);
+      background: #fff
+    }
+
+    .price-summary {
+      background: #fdf9f4;
+      border: 1px solid #ebd9c7;
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-top: 24px
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 8px
+    }
+
+    .price-row.total {
+      border-top: 1px solid #e8d7c4;
+      padding-top: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      color: var(--burgundy);
+      font-weight: 700
+    }
+
+    .submit-btn {
+      width: 100%;
+      margin-top: 20px;
+      background: var(--burgundy);
+      color: #fff;
+      border: 0;
+      border-radius: 8px;
+      padding: 14px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .4px;
+      cursor: pointer;
+      transition: all .2s ease
+    }
+
+    .submit-btn:hover {
+      background: var(--deep);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(101, 0, 6, .28)
+    }
+
+    @media(max-width:850px) {
+      .builder-layout {
+        grid-template-columns: 1fr
+      }
+
+      .preview-card {
+        position: static
+      }
+
+      .preview-stage {
+        height: 300px
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="topbar">✦ <b>Venvision Bespoke Jewellery Atelier</b> — Handcrafted in Riyadh, Saudi Arabia</div>
+  <div class="topbar">✦ <b>Venvision Bespoke Jewellery Atelier</b> — Handcrafted in Riyadh, Saudi Arabia</div>
 
-<header class="header">
-  <div class="header-row">
-    <div class="brand">
-      <div class="logo">V</div>
-      <span>Venvision</span>
+  <header class="header">
+    <div class="header-row">
+      <div class="brand">
+        <div class="logo">V</div>
+        <span>Venvision</span>
+      </div>
+      <a href="index.html" class="back-link">← Return to Store</a>
     </div>
-    <a href="venvision_landing_with_mega_menu_preview.html" class="back-link">← Return to Store</a>
-  </div>
-</header>
+  </header>
 
-<div class="container">
-  <div class="atelier-header">
-    <small>Bespoke Customization Studio</small>
-    <h1>Create Your Own Jewellery</h1>
-    <p>Design a piece made uniquely for you. Select your precious metal purity, centerpiece gemstone, silhouette, and bespoke engraving with our Riyadh atelier master goldsmiths.</p>
-  </div>
-
-  <div class="builder-layout">
-    <div class="preview-card">
-      <div class="preview-stage">
-        <img id="previewDisplay" src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80" alt="Bespoke Jewellery Preview" class="preview-img">
-        <div class="preview-badge" id="previewBadge">Solitaire Diamond Ring</div>
-        <div class="engraving-overlay">
-          <span>Engraving Preview:</span>
-          <b id="engravingText">"Forever & Always"</b>
-        </div>
-      </div>
-      <div style="padding:16px 20px;border-top:1px solid var(--line);font-size:11px;color:var(--muted);display:flex;justify-content:space-between">
-        <span>Assay Certified: Saudi Hallmarked (21K / 18K)</span>
-        <span>Free Insured Delivery Across KSA</span>
-      </div>
+  <div class="container">
+    <div class="atelier-header">
+      <small>Bespoke Customization Studio</small>
+      <h1>Create Your Own Jewellery</h1>
+      <p>Design a piece made uniquely for you. Select your precious metal purity, centerpiece gemstone, silhouette, and
+        bespoke engraving with our Riyadh atelier master goldsmiths.</p>
     </div>
 
-    <div class="options-pane">
-      <div class="opt-section">
-        <div class="opt-title">1. Select Jewellery Category <span id="categoryLabel">Rings</span></div>
-        <div class="grid-choices">
-          <div class="choice-btn active" onclick="setCategory('ring','https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80','Solitaire Ring',3200)">
-            <b>Rings</b><small>Solitaire & Halo</small>
+    <div class="builder-layout">
+      <div class="preview-card">
+        <div class="preview-stage">
+          <img id="previewDisplay"
+            src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80"
+            alt="Bespoke Jewellery Preview" class="preview-img">
+          <div class="preview-badge" id="previewBadge">Solitaire Diamond Ring</div>
+          <div class="engraving-overlay">
+            <span>Engraving Preview:</span>
+            <b id="engravingText">"Forever & Always"</b>
           </div>
-          <div class="choice-btn" onclick="setCategory('necklace','https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=80','Filigree Choker',6400)">
-            <b>Necklaces</b><small>Chokers & Chains</small>
-          </div>
-          <div class="choice-btn" onclick="setCategory('bracelet','https://images.unsplash.com/photo-1590548784585-643d2b9f2925?w=800&auto=format&fit=crop&q=80','Tennis Bracelet',4800)">
-            <b>Bracelets</b><small>Tennis & Cuffs</small>
-          </div>
+        </div>
+        <div
+          style="padding:16px 20px;border-top:1px solid var(--line);font-size:11px;color:var(--muted);display:flex;justify-content:space-between">
+          <span>Assay Certified: Saudi Hallmarked (21K / 18K)</span>
+          <span>Free Insured Delivery Across KSA</span>
         </div>
       </div>
 
-      <div class="opt-section">
-        <div class="opt-title">2. Precious Metal Purity <span id="metalLabel">21K Saudi Yellow Gold</span></div>
-        <div class="grid-choices">
-          <div class="choice-btn active" onclick="setMetal('21K Yellow Gold',0)">
-            <b>21K Gold</b><small>Saudi Benchmark</small>
-          </div>
-          <div class="choice-btn" onclick="setMetal('18K White Gold',450)">
-            <b>18K White</b><small>Italian Alloy</small>
-          </div>
-          <div class="choice-btn" onclick="setMetal('18K Rose Gold',350)">
-            <b>18K Rose</b><small>Subtle Blush</small>
+      <div class="options-pane">
+        <div class="opt-section">
+          <div class="opt-title">1. Select Jewellery Category <span id="categoryLabel">Rings</span></div>
+          <div class="grid-choices">
+            <div class="choice-btn active"
+              onclick="setCategory('ring','https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80','Solitaire Ring',3200)">
+              <b>Rings</b><small>Solitaire & Halo</small>
+            </div>
+            <div class="choice-btn"
+              onclick="setCategory('necklace','https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=80','Filigree Choker',6400)">
+              <b>Necklaces</b><small>Chokers & Chains</small>
+            </div>
+            <div class="choice-btn"
+              onclick="setCategory('bracelet','https://images.unsplash.com/photo-1590548784585-643d2b9f2925?w=800&auto=format&fit=crop&q=80','Tennis Bracelet',4800)">
+              <b>Bracelets</b><small>Tennis & Cuffs</small>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="opt-section">
-        <div class="opt-title">3. Centerpiece Stone <span id="stoneLabel">Natural Brilliant Diamond (VVS1)</span></div>
-        <div class="grid-choices">
-          <div class="choice-btn active" onclick="setStone('Natural Brilliant Diamond',1800)">
-            <b>Diamond</b><small>GIA Certified</small>
+        <div class="opt-section">
+          <div class="opt-title">2. Precious Metal Purity <span id="metalLabel">21K Saudi Yellow Gold</span></div>
+          <div class="grid-choices">
+            <div class="choice-btn active" onclick="setMetal('21K Yellow Gold',0)">
+              <b>21K Gold</b><small>Saudi Benchmark</small>
+            </div>
+            <div class="choice-btn" onclick="setMetal('18K White Gold',450)">
+              <b>18K White</b><small>Italian Alloy</small>
+            </div>
+            <div class="choice-btn" onclick="setMetal('18K Rose Gold',350)">
+              <b>18K Rose</b><small>Subtle Blush</small>
+            </div>
           </div>
-          <div class="choice-btn" onclick="setStone('Colombian Emerald',2200)">
-            <b>Emerald</b><small>Natural Green</small>
+        </div>
+
+        <div class="opt-section">
+          <div class="opt-title">3. Centerpiece Stone <span id="stoneLabel">Natural Brilliant Diamond (VVS1)</span>
           </div>
-          <div class="choice-btn" onclick="setStone('Burma Ruby',2100)">
-            <b>Ruby</b><small>Royal Crimson</small>
+          <div class="grid-choices">
+            <div class="choice-btn active" onclick="setStone('Natural Brilliant Diamond',1800)">
+              <b>Diamond</b><small>GIA Certified</small>
+            </div>
+            <div class="choice-btn" onclick="setStone('Colombian Emerald',2200)">
+              <b>Emerald</b><small>Natural Green</small>
+            </div>
+            <div class="choice-btn" onclick="setStone('Burma Ruby',2100)">
+              <b>Ruby</b><small>Royal Crimson</small>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="opt-section">
-        <div class="opt-title">4. Personal Engraving <small>(Free of charge)</small></div>
-        <input type="text" id="engravingInput" class="engrave-input" placeholder="e.g. Arabic or English initials, date, or name" value="Forever & Always" oninput="updateEngraving(this.value)">
-      </div>
+        <div class="opt-section">
+          <div class="opt-title">4. Personal Engraving <small>(Free of charge)</small></div>
+          <input type="text" id="engravingInput" class="engrave-input"
+            placeholder="e.g. Arabic or English initials, date, or name" value="Forever & Always"
+            oninput="updateEngraving(this.value)">
+        </div>
 
-      <div class="price-summary">
-        <div class="price-row">
-          <span>Base Metal Craft & Setting</span>
-          <span id="basePriceRow">3,200 ﷼</span>
+        <div class="price-summary">
+          <div class="price-row">
+            <span>Base Metal Craft & Setting</span>
+            <span id="basePriceRow">3,200 ﷼</span>
+          </div>
+          <div class="price-row">
+            <span>Center Stone & Alloy Adjustment</span>
+            <span id="stonePriceRow">1,800 ﷼</span>
+          </div>
+          <div class="price-row">
+            <span>Bespoke Riyadh Master Atelier Crafting</span>
+            <span>Included</span>
+          </div>
+          <div class="price-row total">
+            <span>Estimated Total Price</span>
+            <span id="totalPrice">5,000 ﷼</span>
+          </div>
         </div>
-        <div class="price-row">
-          <span>Center Stone & Alloy Adjustment</span>
-          <span id="stonePriceRow">1,800 ﷼</span>
-        </div>
-        <div class="price-row">
-          <span>Bespoke Riyadh Master Atelier Crafting</span>
-          <span>Included</span>
-        </div>
-        <div class="price-row total">
-          <span>Estimated Total Price</span>
-          <span id="totalPrice">5,000 ﷼</span>
-        </div>
-      </div>
 
-      <button class="submit-btn" onclick="alert('Thank you! Your custom jewellery configuration has been received by the Venvision Atelier team. We will contact you within 2 hours with 3D CAD renders.')">Request Atelier Consultation →</button>
+        <button class="submit-btn"
+          onclick="alert('Thank you! Your custom jewellery configuration has been received by the Venvision Atelier team. We will contact you within 2 hours with 3D CAD renders.')">Request
+          Atelier Consultation →</button>
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-let basePrice = 3200;
-let metalExtra = 0;
-let stoneExtra = 1800;
+  <script>
+    let basePrice = 3200;
+    let metalExtra = 0;
+    let stoneExtra = 1800;
 
-function updatePrices(){
-  const total = basePrice + metalExtra + stoneExtra;
-  document.getElementById('basePriceRow').textContent = (basePrice + metalExtra).toLocaleString() + ' ﷼';
-  document.getElementById('stonePriceRow').textContent = stoneExtra.toLocaleString() + ' ﷼';
-  document.getElementById('totalPrice').textContent = total.toLocaleString() + ' ﷼';
-}
+    function updatePrices() {
+      const total = basePrice + metalExtra + stoneExtra;
+      document.getElementById('basePriceRow').textContent = (basePrice + metalExtra).toLocaleString() + ' ﷼';
+      document.getElementById('stonePriceRow').textContent = stoneExtra.toLocaleString() + ' ﷼';
+      document.getElementById('totalPrice').textContent = total.toLocaleString() + ' ﷼';
+    }
 
-function setCategory(cat, img, label, price){
-  document.getElementById('previewDisplay').src = img;
-  document.getElementById('previewBadge').textContent = label;
-  document.getElementById('categoryLabel').textContent = label;
-  basePrice = price;
-  updatePrices();
-  event.currentTarget.parentElement.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('active'));
-  event.currentTarget.classList.add('active');
-}
+    function setCategory(cat, img, label, price) {
+      document.getElementById('previewDisplay').src = img;
+      document.getElementById('previewBadge').textContent = label;
+      document.getElementById('categoryLabel').textContent = label;
+      basePrice = price;
+      updatePrices();
+      event.currentTarget.parentElement.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+    }
 
-function setMetal(name, extra){
-  document.getElementById('metalLabel').textContent = name;
-  metalExtra = extra;
-  updatePrices();
-  event.currentTarget.parentElement.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('active'));
-  event.currentTarget.classList.add('active');
-}
+    function setMetal(name, extra) {
+      document.getElementById('metalLabel').textContent = name;
+      metalExtra = extra;
+      updatePrices();
+      event.currentTarget.parentElement.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+    }
 
-function setStone(name, extra){
-  document.getElementById('stoneLabel').textContent = name;
-  stoneExtra = extra;
-  updatePrices();
-  event.currentTarget.parentElement.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('active'));
-  event.currentTarget.classList.add('active');
-}
+    function setStone(name, extra) {
+      document.getElementById('stoneLabel').textContent = name;
+      stoneExtra = extra;
+      updatePrices();
+      event.currentTarget.parentElement.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+    }
 
-function updateEngraving(val){
-  document.getElementById('engravingText').textContent = val ? `"${val}"` : 'None';
-}
-</script>
+    function updateEngraving(val) {
+      document.getElementById('engravingText').textContent = val ? `"${val}"` : 'None';
+    }
+  </script>
 
 </body>
+
 </html>
