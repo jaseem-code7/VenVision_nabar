@@ -1,0 +1,4 @@
+VenVision-admin-dashboard-demo/
+node_modules/
+.DS_Store
+*.log
