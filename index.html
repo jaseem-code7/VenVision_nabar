@@ -305,6 +305,132 @@
       font-size: 14px
     }
 
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px
+    }
+
+    .cat-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      background: #fff;
+      transition: box-shadow .2s, transform .15s
+    }
+
+    .cat-card:hover {
+      box-shadow: 0 6px 22px rgba(101, 0, 6, .12);
+      transform: translateY(-2px)
+    }
+
+    .cat-card-img {
+      height: 100px;
+      overflow: hidden;
+      background: #f6e6d6
+    }
+
+    .cat-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .3s ease
+    }
+
+    .cat-card:hover .cat-card-img img {
+      transform: scale(1.06)
+    }
+
+    .cat-card-label {
+      text-align: center;
+      padding: 8px 6px;
+      font-family: Georgia, serif;
+      font-size: 12px;
+      color: var(--text)
+    }
+
+    .cta-strip {
+      margin-top: 14px;
+      border: 1px solid #ead9c8;
+      border-radius: 11px;
+      background: linear-gradient(90deg, #fffaf5, #fff);
+      display: flex;
+      align-items: center;
+      padding: 10px 16px;
+      gap: 14px
+    }
+
+    .cta-thumbs {
+      display: flex;
+      flex-shrink: 0
+    }
+
+    .cta-thumb {
+      width: 34px;
+      height: 42px;
+      border-radius: 7px;
+      border: 2px solid #fff;
+      margin-left: -8px;
+      overflow: hidden
+    }
+
+    .cta-thumb:first-child {
+      margin-left: 0
+    }
+
+    .cta-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block
+    }
+
+    .cta-copy {
+      flex: 1;
+      min-width: 0
+    }
+
+    .cta-tag {
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700
+    }
+
+    .cta-title {
+      display: block;
+      font-family: Georgia, serif;
+      font-size: 13px;
+      color: var(--burgundy);
+      line-height: 1.2;
+      margin-top: 1px
+    }
+
+    .cta-sub {
+      font-size: 10px;
+      color: var(--muted)
+    }
+
+    .cta-btn {
+      background: var(--burgundy);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 9px 16px;
+      border-radius: 20px;
+      text-decoration: none;
+      white-space: nowrap;
+      letter-spacing: .3px;
+      flex-shrink: 0
+    }
+
+    .cta-btn:hover {
+      background: var(--deep)
+    }
+
     .mini-strip {
       margin-top: 18px;
       height: 62px;
@@ -1448,15 +1574,20 @@
       renderPanel(DATA[name].panels[active]);
     }
     function renderPanel(p) {
-      if (p.mode === "links") {
-        const cols = [[], [], []]; p.items.forEach((x, i) => cols[i % 3].push(x));
-        content.innerHTML = `<div class="link-grid">${cols.map(c => `<div class="col">${c.map(x => `<a href="#" class="menu-link"><span class="menu-ico" style="background:none;border:none;width:34px;height:34px;border-radius:8px;overflow:hidden;flex-shrink:0"><img src="${photoFor(x)}" alt="${x}" style="width:100%;height:100%;object-fit:cover;border-radius:8px" loading="lazy"></span><span class="menu-name">${x}</span></a>`).join("")}</div>`).join("")}</div>${strip(p.strip)}`;
-      } else {
-        content.innerHTML = `<div class="tile-grid">${p.items.map(x => `<div class="tile"><div class="tile-art" style="padding:0;background:#f6e6d6"><img src="${photoFor(x)}" alt="${x}" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy"></div><div class="tile-name">${x}</div></div>`).join("")}</div>${strip(p.strip)}`;
-      }
+      const cards = p.items.map(x =>
+        `<div class="cat-card"><div class="cat-card-img"><img src="${photoFor(x)}" alt="${x}" loading="lazy"></div><div class="cat-card-label">${x}</div></div>`
+      ).join("");
+      content.innerHTML = `<div class="card-grid">${cards}</div>${ctaStrip()}`;
       promo.innerHTML = `<div class="promo-art"></div><h3>${p.promo[0]}</h3><a href="#">${p.promo[1]} ↗</a><div style="margin-top:18px;border-top:1px solid var(--line);padding-top:16px"><p style="font-family:Georgia,serif;color:var(--burgundy);font-size:14px;margin:0 0 5px;font-weight:700">Create Your Own Jewellery</p><p style="font-size:11px;color:var(--muted);margin:0 0 12px">Design a piece made uniquely for you.</p><a href="customization.html" style="display:inline-block;background:var(--burgundy);color:#fff;font-size:11px;font-weight:600;padding:9px 18px;border-radius:6px;text-decoration:none;letter-spacing:.3px">Start Customization →</a></div>`;
     }
-    function strip(s) { return `<div class="mini-strip"><div class="dots"><div class="dot">◇</div><div class="dot">◌</div><div class="dot">✦</div></div><div class="strip-copy"><b>${s[0]}</b><span>${s[1]}</span></div><button class="view">View All</button></div>` }
+    function ctaStrip() {
+      const thumbs = [
+        PHOTOS.ring,
+        PHOTOS.necklace,
+        PHOTOS.bangle
+      ];
+      return `<div class="cta-strip"><div class="cta-thumbs">${thumbs.map(u => `<div class="cta-thumb"><img src="${u}" alt="" loading="lazy"></div>`).join("")}</div><div class="cta-copy"><span class="cta-tag">ATELIER</span><b class="cta-title">Create Your Own Jewellery</b><span class="cta-sub">Design a piece made uniquely for you.</span></div><a href="customization.html" class="cta-btn">Start Customization →</a></div>`;
+    }
     mega.addEventListener("mouseenter", () => clearTimeout(timer));
     mega.addEventListener("mouseleave", () => { timer = setTimeout(() => { mega.classList.remove("open"); nav.querySelectorAll("button").forEach(b => b.classList.remove("active")) }, 170) });
     document.addEventListener("keydown", e => { if (e.key === "Escape") { mega.classList.remove("open"); nav.querySelectorAll("button").forEach(b => b.classList.remove("active")) } });
