@@ -1578,7 +1578,7 @@
         `<div class="cat-card"><div class="cat-card-img"><img src="${photoFor(x)}" alt="${x}" loading="lazy"></div><div class="cat-card-label">${x}</div></div>`
       ).join("");
       content.innerHTML = `<div class="card-grid">${cards}</div>${ctaStrip()}`;
-      promo.innerHTML = `<div class="promo-art"></div><h3>${p.promo[0]}</h3><a href="#">${p.promo[1]} ↗</a><div style="margin-top:18px;border-top:1px solid var(--line);padding-top:16px"><p style="font-family:Georgia,serif;color:var(--burgundy);font-size:14px;margin:0 0 5px;font-weight:700">Create Your Own Jewellery</p><p style="font-size:11px;color:var(--muted);margin:0 0 12px">Design a piece made uniquely for you.</p><a href="customization.html" style="display:inline-block;background:var(--burgundy);color:#fff;font-size:11px;font-weight:600;padding:9px 18px;border-radius:6px;text-decoration:none;letter-spacing:.3px">Start Customization →</a></div>`;
+      promo.innerHTML = `<div class="promo-art"></div><h3>${p.promo[0]}</h3><a href="#">${p.promo[1]} ↗</a>`;
     }
     function ctaStrip() {
       const thumbs = [
